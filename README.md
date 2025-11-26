@@ -8,7 +8,7 @@ This repo is the official project repository of the paper **_A Self-Conditioned 
 - Unconditional Generation on SemanticKITTI.
 -  **_Text-guided Generation_**
 - Text-guided Generation on nuScenes.
--  **_Latent ControlNet_**
+-  **_Non-Latent ControlNet_**
 - Semantic-to-LiDAR Generation on nuScenes.
 - Semantic-to-LiDAR Generation on SemanticKITTI.
 - Sparse-to-Dense Generation on nuScenes.
