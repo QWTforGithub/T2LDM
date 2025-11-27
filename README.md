@@ -1,6 +1,7 @@
 # T2LDM
 
 This repo is the official project repository of the paper **_A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation_**. 
+-  [ [arXiv](https://arxiv.org/pdf/2511.19004) ]
 -  Too many tasks have resulted in messy code, which is currently being cleaned up...
 -  **_Unconditional Generation_**
 - Unconditional Generation on nuScenes.
