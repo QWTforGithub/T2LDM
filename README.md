@@ -2,8 +2,8 @@
 
 This repo is the official project repository of the paper **_A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation_**. 
 -  [ [arXiv](https://arxiv.org/pdf/2511.19004) ]
--  Too many tasks have resulted in messy code, which is currently being cleaned up... [20/11/2025]
--  The code has been organied. [05/12/2025]. 
+-  [11/20/2025] Too many tasks have resulted in messy code, which is currently being cleaned up... 
+-  [12/05/2025] The code has been organied. 
 -  **_Unconditional Generation_**
 - Unconditional Generation on nuScenes.
 - Unconditional Generation on KITTI-360.
