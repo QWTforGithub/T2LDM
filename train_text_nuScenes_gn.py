@@ -245,13 +245,13 @@ def train(cfg):
     ddpm.train()
     ddpm.to(device)
 
-    # ---- clip ----
+    # ---- Text Encoder ----
     if(cfg.use_text):
         if(cfg.clip_mode is not None):
             text_encoder = clip.load(cfg.clip_mode, device=device)
         elif(cfg.T5_mode is not None):
             text_encoder = t5(cfg.T5_mode).to(device)
-    # ---- clip ----
+    # ---- Text Encoder ----
 
     ddpm_ema = None
     if accelerator.is_main_process:
