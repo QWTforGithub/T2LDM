@@ -149,7 +149,7 @@ class TrainingConfig:
     diffusion_clip_sample: bool = True
     diffusion_clip_sample_range: float = 1.0
 
-    diffusion_guidence_step_interval: int = 400_000
+    diffusion_guidence_step_interval: int = 200_000 # 400_000(2GPUs), 200_000(4GPUs), 100_000(8GPUs)
     diffusion_guidence_weights = [0.001, 0.01, 0.1, 1.0]
 
     diffusion_classifier_free_scale: float = None  # 4.0
