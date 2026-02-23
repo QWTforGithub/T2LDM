@@ -97,6 +97,7 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
         downsampling =False,
         down_rate=0.5,
         base_down_rate=1.0,
+        inference=False
     ):
         super().__init__(
             denoiser=denoiser,
@@ -122,7 +123,8 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
             base_up_rate=base_up_rate,
             upsampling=upsampling,
             down_rate=down_rate,
-            base_down_rate=base_down_rate
+            base_down_rate=base_down_rate,
+            inference=False
         )
         self.image_d = image_d
         self.noise_d_low = noise_d_low
@@ -256,7 +258,7 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
         alpha_t, sigma_t = self.log_snr_to_alpha_sigma(log_snr_t)
         alpha_s, sigma_s = self.log_snr_to_alpha_sigma(log_snr_s)
 
-        if(self.use_guidence_net and not self.use_control_net and self.training):
+        if(self.use_guidence_net and not self.use_control_net and not self.inference):
             n_pred, g_pred, _,_ = self.denoiser(n_x=x_t, t=log_snr_t[:, 0, 0, 0], cemb=text_features, g_x=conditional_x_0)
         else:
             if(self.use_seg):
@@ -296,7 +298,7 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
         else:
             raise ValueError(f"invalid mode {mode}")
 
-        if(self.use_guidence_net and not self.use_control_net and self.training):
+        if(self.use_guidence_net and not self.use_control_net and not self.inference):
             return x_s, g_pred, var_noise
         else:
             return x_s, var_noise
@@ -329,7 +331,7 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
         for i in tqdm(range(num_steps), mininterval=0.0, **tqdm_kwargs):
             step_t = steps[:, i]
             step_s = steps[:, i + 1]
-            if(self.use_guidence_net and conditional_x_0 is not None and not self.use_control_net):
+            if(self.use_guidence_net and conditional_x_0 is not None and not self.use_control_net and not self.inference):
                 x, g_pred, noise = self.p_sample(
                     x,
                     step_t,
@@ -359,7 +361,7 @@ class ContinuousTimeGaussianDiffusion(base.GaussianDiffusion):
         if(return_noise): noises = torch.stack(noises, dim=0)
 
 
-        if(self.use_guidence_net and not self.use_control_net and self.training):
+        if(self.use_guidence_net and not self.use_control_net and not self.inference):
             return (x, g_pred, noises) if return_noise else (x, g_pred, None)
         else:
             return (x, noises) if return_noise else (x, None)

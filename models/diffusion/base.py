@@ -37,7 +37,8 @@ class GaussianDiffusion(nn.Module):
         base_up_rate=0.25,
         downsampling: bool = False,
         down_rate=0.5,
-        base_down_rate=1.0
+        base_down_rate=1.0,
+        inference=False
     ):
         super().__init__()
         self.denoiser = denoiser
@@ -60,6 +61,7 @@ class GaussianDiffusion(nn.Module):
         self.downsampling = downsampling
         self.down_rate = down_rate
         self.base_down_rate = base_down_rate
+        self.inference = inference
 
         if(use_guidence_net):
             self.guidence_weighter = common.SCRGLossWeight(
