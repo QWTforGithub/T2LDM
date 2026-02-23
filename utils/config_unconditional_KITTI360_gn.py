@@ -16,9 +16,9 @@ class TrainingConfig:
     resolution: tuple[int, int] = (64, 1024)
     depth_range: tuple[int, int] = (1.45, 80.0)
     fov: tuple[int, int] = (3, -25)
-    batch_size_train: int = 4 # 2 # 16
+    batch_size_train: int = 8 # 2 #  4(2 GPUs), 8(4 GPUs), 16(8 GPUs)
     batch_size_eval: int = 4
-    num_workers: int = 4# 2 # 16
+    num_workers: int = 8# 2 #  4(2 GPUs), 8(4 GPUs), 16(8 GPUs)
 
     text_keys: str = "text_aim" # "text_l0 text_l1 text_2"
     pkl: str = "nuscenes_infos_10sweeps_description.pkl"
@@ -114,7 +114,7 @@ class TrainingConfig:
     train_depth: bool = True
     train_reflectance: bool = True
     train_mask: bool = True # True
-    num_steps: int = 4_000_000 # 8 GPUs ==> 400_000, 4 GPUs ==> 800_000
+    num_steps: int = 4_000_000 # 1_600_000(2GPUs), 800_000(4GPUs), 400_000(8GPUs)
     save_sample_steps: int =  20_000# 5_000 # 10_000 # 1
     save_model_steps: int =  20_000 # 1
     gradient_accumulation_steps: int = 1
