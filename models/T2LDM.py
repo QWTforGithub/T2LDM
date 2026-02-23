@@ -85,8 +85,8 @@ def make_attn(
             use_norm=use_norm,
             use_rope=use_rope,
             use_res_connection=use_res_connection,
-            # use_zero_weight=use_zero_weight,
-            # gate=gate
+            use_zero_weight=use_zero_weight,
+            gate=gate
         )
     else:
         return nn.Identity(ch)
@@ -409,7 +409,7 @@ class Attention(nn.Module):
             self.heads = query_dim // dim_head
             self.dim_head = dim_head
 
-        self.scale = dim_head ** -0.5
+        self.scale = self.dim_head ** -0.5
         self.heads = heads
 
         self.use_norm = use_norm
@@ -563,7 +563,7 @@ class LinearAttention(nn.Module):
             self.heads = dim // dim_head
         self.dim_head = dim_head
 
-        self.scale = dim_head ** -0.5
+        self.scale = self.dim_head ** -0.5
 
         self.use_norm = use_norm
         if self.use_norm:
@@ -600,10 +600,11 @@ class LinearAttention(nn.Module):
         if kv is None:
             kv = q
 
-        q = self.to_q(q)
         if(self.use_norm and not self.gate):
             q = self.norm_q(q)
             kv = self.norm_kv(kv)
+
+        q = self.to_q(q) * (self.scale if (LINEAR_ATTENTION_SCALE) else 1.0)
 
         # 投影
         if(self.gate == "head"):
@@ -625,7 +626,6 @@ class LinearAttention(nn.Module):
             q = rearrange(q, 'b hgt wdt h c -> b h c (hgt wdt)', h=self.heads)
         else:
             q = rearrange(q, 'b (h c) hgt wdt -> b h c (hgt wdt)', h=self.heads)  # [B,h,Cd,N]
-        q = q * (self.scale if (LINEAR_ATTENTION_SCALE) else 1.0)
 
         kv = self.to_kv(kv)
         k, v = rearrange(kv, 'b (kv h c) hgt wdt -> kv b h c (hgt wdt)', kv=2, h=self.heads)
@@ -2656,7 +2656,7 @@ if __name__ == '__main__':
         # n_norm_types=norm_types,
         # n_midd_attn_type="nn",
         # n_midd_norm_type="ln",
-        use_guidence_net=False,
+        use_guidence_net=True,
         use_control_net=False,
         use_text=False,
         use_circularconv_shortcut=False,
@@ -2669,22 +2669,22 @@ if __name__ == '__main__':
     l = torch.randn(size=(2, 1, 64, 1024), dtype=torch.float32).cuda()
     t = torch.ones(size=(2,)).cuda()
     context = torch.randn(size=(2, 77, 768), dtype=torch.float32).cuda()
+    print(x.shape)
+    x = model(n_x=x, t=t, cemb=context, g_x=g, l_x=l)
+    if (isinstance(x, tuple)):
+        g_x, n_x, _, _ = x
+        print(g_x.shape)
+        print(n_x.shape)
+    else:
+        print(x.shape)
 
-    # print(x.shape)
-    # x = model(n_x=x, t=t, cemb=context, g_x=g, l_x=l)
-    # if (isinstance(x, tuple)):
-    #     g_x, n_x, _, _ = x
-    #     print(g_x.shape)
-    #     print(n_x.shape)
-    # else:
-    #     print(x.shape)
+    x = torch.randn(size=(2, 64, 16, 64), dtype=torch.float32).cuda()
+    # m = Attention(gate=False,heads=2).cuda()
+    # m = LinearAttention(gate=False,heads=2).cuda()
+    m = AttentionBlock(gate=False,heads=2).cuda()
+    x = m(x)
 
-    # x = torch.randn(size=(2, 64, 16, 64), dtype=torch.float32).cuda()
-    # # m = Attention(gate=False,heads=2).cuda()
-    # # m = LinearAttention(gate=False,heads=2).cuda()
-    # m = AttentionBlock(gate=False,heads=2).cuda()
-    # x = m(x)
-    #
-    # print(f"number of parameters: {common.count_parameters(m):,}")
-    # print(x.shape)
+    print(f"number of parameters: {common.count_parameters(m):,}")
+    print(x.shape)
+
 
