@@ -171,52 +171,7 @@ class GaussianDiffusion(nn.Module):
         if(self.use_control_net):
 
             controls = []
-            if(self.upsampling):
-                start = 0
-                end = 0
-                for batch in batches:
-                    end += batch
-                    points_batch = points[start:end, :] # [N,C]
-
-                    # ---- 下采样 ----
-                    points_batch = points_batch.unsqueeze(0).permute(0,2,1) # [1,C,N]
-                    points_batch = common.midpoint_interpolate(points_batch, up_rate=0.5) # [1,C,N/2]
-                    points_batch = points_batch.permute(0,2,1).squeeze() # [1,N/2,C] -> [N/2,C]
-                    # ---- 下采样 ----
-
-                    # ---- RM ----
-                    points_batch = common.points_as_images_torch(points_batch, size=self.sampling_shape[1:]).permute(2,0,1) # [C,H,W]
-                    points_batch = common.normalize(points_batch)
-                    points_batch = common.convert_depth(points_batch)
-                    # ---- RM ----
-
-                    controls.append(points_batch)
-
-                controls = torch.stack(controls, dim=0)
-
-            elif(self.downsampling):
-                start = 0
-                end = 0
-                for batch in batches:
-                    end += batch
-                    points_batch = points[start:end, :]  # [N,C]
-
-                    # ---- 上采样 ----
-                    points_batch = points_batch.unsqueeze(0).permute(0, 2, 1)  # [1,C,N]
-                    points_batch = common.midpoint_interpolate(points_batch, up_rate=2)  # [1,C,N/2]
-                    points_batch = points_batch.permute(0, 2, 1).squeeze()  # [1,N/2,C] -> [N/2,C]
-                    # ---- 上采样 ----
-
-                    # ---- RM ----
-                    points_batch = common.points_as_images_torch(points_batch, size=self.sampling_shape[1:]).permute(2, 0, 1)  # [C,H,W]
-                    points_batch = common.normalize(points_batch)
-                    points_batch = common.convert_depth(points_batch)
-                    # ---- RM ----
-
-                    controls.append(points_batch)
-
-                controls = torch.stack(controls, dim=0)
-            elif(self.use_seg):
+            if(self.use_seg):
                 controls = semantic
 
             l_x = controls
