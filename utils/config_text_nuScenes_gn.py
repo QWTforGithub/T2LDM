@@ -16,9 +16,9 @@ class TrainingConfig:
     resolution: tuple[int, int] = (32, 1024)
     depth_range: tuple[int, int] = (0.01, 50.0)
     fov: tuple[int, int] = (3, -25)
-    batch_size_train: int = 2 # 2 # 16
+    batch_size_train: int = 16 # 2 # 8(2 GPUs), 16(4 GPUs), 32(8 GPUs)
     batch_size_eval: int = 4
-    num_workers: int = 2# 2 # 16
+    num_workers: int = 16 # 2 # 8(2 GPUs), 16(4 GPUs), 32(8 GPUs)
 
     text_keys: str = "text_aim" # "text_l0 text_l1 text_2"
     pkl: str = "nuscenes_infos_10sweeps_description.pkl"
@@ -114,7 +114,7 @@ class TrainingConfig:
     train_depth: bool = True
     train_reflectance: bool = True
     train_mask: bool = True # True
-    num_steps: int = 2_000_000  # 8 GPUs ==> 400_000, 4 GPUs ==> 800_000
+    num_steps: int = 2_000_000  # 1_600_000(2GPUs), 800_000(4GPUs), 400_000(8GPUs)
     save_sample_steps: int =  10_000# 5_000 # 10_000 # 1
     save_model_steps: int =  10_000 # 1
     gradient_accumulation_steps: int = 1
@@ -149,9 +149,9 @@ class TrainingConfig:
     diffusion_clip_sample: bool = True
     diffusion_clip_sample_range: float = 1.0
 
-    diffusion_guidence_step_interval: int = 200_000
+    diffusion_guidence_step_interval: int = 200_000 # 400_000(2GPUs), 200_000(4GPUs), 100_000(8GPUs)
     diffusion_guidence_weights = [0.001, 0.01, 0.1, 1.0] # [0.001, 0.01, 0.1, 1.0]
 
-    diffusion_classifier_free_scale: float = 5.0 # None  # 4.0
+    diffusion_classifier_free_scale: float = 4.0 # None  # 4.0
     diffusion_classifier_dropout: float = 0.1 # 0.1
     # ---- diffusion setting ----
