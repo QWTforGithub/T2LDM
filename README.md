@@ -4,6 +4,7 @@ This repo is the official project repository of the paper **_A Self-Conditioned 
  -  [ [arXiv](https://arxiv.org/abs/2511.19004) ], [ [CVPR](xxxx) ] 
  - **_Our paper has been accepted by CVPR 2026!_**
  - **_Released model weights are temporarily as the model structure of T2LDM may be adjusted later._**
+ - **_The code wiil further be updated!_**
 
 ## Overall Framework 
 <img src="assets/t2ldm.png" alt="t2ldm" width="900"/> <br/>
