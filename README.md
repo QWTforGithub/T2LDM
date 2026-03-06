@@ -166,6 +166,11 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
   accelerate launch train_unconditional_nuScenes_gn_stage2.py 2>&1 | tee train.log
 
 ```
+We find the best result for joint training of GN and DN
+```
+  # Training on nuScenes for frozen GN and trainable DN on 0-40W Steps
+  accelerate launch train_unconditional_nuScenes_gn.py 2>&1 | tee train.log
+```
 
 ### Generation
 The results are in the 'test/{time}_{stpes}_ddpm{sample num}_{task}_{dataset}_{random seed}' folder.<br/>
