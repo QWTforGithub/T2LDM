@@ -151,6 +151,14 @@ Some results from T2LDM with the Full Training SCRG checkpoint.
 
 ## Quick Start
 
+### Accelerate Configuration
+Before the training and sampling, it must deploys the accelerate.
+```
+  conda activate t2ldm
+  accelerate config
+  # please finsh the accelerate configuration according to the tips.
+```
+
 ### Training
 The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 
