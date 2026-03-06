@@ -1,17 +1,179 @@
 # T2LDM
 
 This repo is the official project repository of the paper **_A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation_**. 
--  [ [arXiv](https://arxiv.org/pdf/2511.19004) ]
--  [11/20/2025] Too many tasks have resulted in messy code, which is currently being cleaned up... 
--  [12/05/2025] The code has been organied. == The complete code wiil be released. 
--  **_Unconditional Generation_**
-- Unconditional Generation on nuScenes.
-- Unconditional Generation on KITTI-360.
-- Unconditional Generation on SemanticKITTI.
--  **_Text-guided Generation_**
-- Text-guided Generation on nuScenes.
--  **_Non-Latent ControlNet_**
-- Semantic-to-LiDAR Generation on nuScenes.
-- Semantic-to-LiDAR Generation on SemanticKITTI.
-- Sparse-to-Dense Generation on nuScenes.
-- Dense-to-Sparse Generation on nuScenes.
+ -  [ [arXiv](https://arxiv.org/abs/2511.19004) ], [ [CVPR](xxxx) ] 
+ - **_Our paper has been accepted by CVPR 2026!_**
+ - **_Released model weights are temporarily as the model structure of T2LDM may be adjusted later._**
+
+## Overall Framework 
+<img src="assets/t2ldm.png" alt="t2ldm" width="900"/> <br/>
+
+## Citation
+If you find our paper useful to your research, please cite our work as an acknowledgment.
+```bib
+@article{qu2025self,
+  title={A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation},
+  author={Qu, Wentao and Mei, Guofeng and Wu, Yang and Gong, Yongshun and Huang, Xiaoshui and Xiao, Liang},
+  journal={arXiv preprint arXiv:2511.19004},
+  year={2025}
+}
+```
+
+## Codebase
+**_T2LDM_** is built upon the codebase of **_R2DM_** and **_Text2LiDAR_**. We further refine and optimize this codebase with the hope of contributing to the LiDAR generation community.
+
+### 1. Sample Dataset Form
+The original dataloader follows a TensorFlow-style design, which is not convenient for reading and debugging. T2LDM follows a PyTorch-style implementation and introduces a validation dataset(ConditionalX0) to facilitate monitoring intermediate generation results.
+```
+  # If you want to create your a new Dataloader, please check:
+    data/new_dataset/new_dataset.py
+```
+
+### 2. Supporting Multi-GPU Generation
+We rewrote the generation code to supprot generation samples using multiple GPUs.
+```
+  # Please check:
+    generation_mgpus_{task}_{dataset}.py
+```
+### 3. Friendly Generation Result
+The original training only produces the BEV PNGs from generation Range Maps. <br/>
+Our code directly transfer RMs to PCs for results. <br/>
+For Text-to-LiDAR, the code saves texts and PCs. <br/>
+For Semantic-to-LiDAR, the code saves semantics, GT PCs and generated colorful PCs.
+```
+  # Please check:
+    utils/lidar.py
+```
+<img src="assets/fig3.png" alt="t2ldm" width="900"/> <br/>
+
+### 4. Flexible Network Framework
+The network framework of T2LDM is flexible. We can easily adjust the framework only though changing the network list.
+```
+  # Please check:
+    models/T2LDM.py
+    
+  def get_encoder_deocder_gn():
+    ...
+   
+  def get_encoder_deocder_dn():
+    ...
+```
+
+### 5. Supporting T5 Text Encoder
+We add the **_T5_** on T2LDM.
+```
+  # Please check: 
+    models/T5/T5.py
+    
+  # Change the config file: utils/config_text_nuScenes.py
+    clip_mode: None # closing the CLIP Text Encoder
+    T5_mode: "base" # small(512), base(768), large(1024)
+```
+
+### Adding Some Tricks from Papers
+1) [ [JIT](https://arxiv.org/abs/2511.13720) ]
+2) [ [Gated Attention](https://arxiv.org/pdf/2505.06708) ]
+3) [ [FreeU](https://openaccess.thecvf.com/content/CVPR2024/papers/Si_FreeU_Free_Lunch_in_Diffusion_U-Net_CVPR_2024_paper.pdf) ]
+4) [ [ScaleLong](https://proceedings.neurips.cc/paper_files/paper/2023/file/ded98d28f82342a39f371c013dfb3058-Paper-Conference.pdf) ]
+
+
+## Overview
+- [Installation](#installation)
+- [Data Preparation](#data-preparation)
+- [Model Zoo](#model-zoo)
+- [Quick Start](#quick-start)
+
+## Installation
+
+### Requirements
+The following environment is recommended for running **_CDSegNet_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):
+- Ubuntu: 18.04 and above
+- gcc/g++: 11.4 and above
+- CUDA: 12.1
+- PyTorch: 2.1.0
+- python: 3.10
+
+### Environment
+
+#### Using environments.ymal
+```
+  cd envs
+  conda env create -f environment.yaml
+  
+  cd ../pointops
+  python setup.py install
+```
+
+#### Using requirements.txt
+```
+  conda create -n t2ldm python=3.10 -y
+  conda activate t2ldm
+
+  pip install -r requirements.txt
+
+  pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
+  pip install ema-pytorch==0.4.8 kornia==0.7.0 accelerate==0.22.0
+
+  cd ../pointops
+  python setup.py install
+```
+
+## Data Preparation
+
+### nuScenes
+- Download the official [nuScenes](https://www.nuscenes.org/nuscenes#download) (or [Baidu Disk](https://pan.baidu.com/s/1Rsbi-Q_2EUm05lwQgn8T3Q?pwd=1111)(code:1111)) dataset (with Lidar Segmentation) and organize the downloaded files as follows:
+  ```bash
+  nuScenes
+  │── samples
+  │── sweeps
+  │── lidarseg
+  ...
+  │── v1.0-trainval 
+  │── v1.0-test
+  ```
+
+
+## Model Zoo
+I am very sorry for no space of my Google Cloud Disk. Please download something by the Baidu Disk. <br/>
+As I rewrite the code of T2LDM, I have to retrain T2LDM. And I train T2LDM using four NVIDIA 3090 GPUs, because I currently don't have eight 4090 NVIDIA GPUs. 
+
+### nuScenes
+|              Model              |                                                                                      Samples                                                                                      |                                         checkpoint                                      |
+|:-------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
+|    Frozen SCRG on 10W Steps     |                                                                                        --                                                                                         |                                                                                         |
+| Full Training SCRG on 40W Steps | [Baidu Disk](https://pan.baidu.com/s/1FPwkhLbPHapUwskA8uegyA?pwd=1111), [Google Cloud Disk](https://drive.google.com/file/d/1F7t3gzUhQb_oJ6yO0Xrp0f_ZnVHUrVP8/view?usp=sharing) | [Baidu Disk](https://pan.baidu.com/s/1o-ejSMipUa7IpJN3FvEjiw?pwd=1111), [Google Disk](https://drive.google.com/file/d/1vKowjTH55FRLv5rL6BJ4-s-Jv3pVQs70/view?usp=sharing) |
+
+
+## Quick Start
+
+### Training
+The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
+
+```
+  # Changing the dataset path on: 
+  #  utils/train_unconditional_nuScenes_gn_stage1.py
+  #  utils/train_unconditional_nuScenes_gn_stage2.py
+  
+  # Joint training on nuScenes for GN and DN on 0-10W Steps
+  accelerate launch train_unconditional_nuScenes_gn_stage1.py 2>&1 | tee train.log
+  
+  # Adding the frozen GN path on
+  #   utils/train_unconditional_nuScenes_gn_stage2.py
+  #   pretrained_checkpoint_dir: str = "XX.pth"
+  
+  # Training on nuScenes for frozen GN and trainable DN on 10-40W Steps
+  accelerate launch train_unconditional_nuScenes_gn_stage2.py 2>&1 | tee train.log
+
+```
+
+### Generation
+The results are in the 'test/{time}_{stpes}_ddpm{sample num}_{task}_{dataset}_{random seed}' folder.<br/>
+The generation configuration is not related to the dataset configuration.
+
+```
+  # Changing the checkpoint path on: 
+  #   ckpt = "xx.pth"
+  
+  # Genration for nuScenes
+  accelerate launch --main_process_port 29501  generate_mgpus_unconditional_nuScenes.py 2>&1 | tee test.log
+```
