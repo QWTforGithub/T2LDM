@@ -37,7 +37,7 @@ We rewrote the generation code to support generation samples using multiple GPUs
     generation_mgpus_{task}_{dataset}.py
 ```
 ### 3. Friendly Generation Result
-The original training only produces the BEV PNGs from generation Range Maps. <br/>
+The original code only produces the BEV PNGs from generation Range Maps. <br/>
 Our code directly transfer RMs to PCs for results. <br/>
 For Text-to-LiDAR, the code saves texts and PCs. <br/>
 For Semantic-to-LiDAR, the code saves semantics, GT PCs and generated colorful PCs.
