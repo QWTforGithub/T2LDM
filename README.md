@@ -152,8 +152,8 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 
 ```
   # Changing the dataset path on: 
-  #  utils/train_unconditional_nuScenes_gn_stage1.py
-  #  utils/train_unconditional_nuScenes_gn_stage2.py
+  #  utils/config_unconditional_nuScenes_gn_stage1.py
+  #  utils/config_unconditional_nuScenes_gn_stage2.py
   
   # Joint training on nuScenes for GN and DN on 0-10W Steps
   accelerate launch train_unconditional_nuScenes_gn_stage1.py 2>&1 | tee train.log
@@ -168,6 +168,9 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 ```
 We find the best result for joint training of GN and DN
 ```
+  # Changing the dataset path on: 
+  #  utils/config_unconditional_nuScenes_gn_full_scrg.py
+
   # Training on nuScenes for frozen GN and trainable DN on 0-40W Steps
   accelerate launch train_unconditional_nuScenes_gn_full_scrg.py 2>&1 | tee train.log
 ```
