@@ -31,7 +31,7 @@ The original dataloader follows a TensorFlow-style design, which is not convenie
 ```
 
 ### 2. Supporting Multi-GPU Generation
-We rewrote the generation code to supprot generation samples using multiple GPUs.
+We rewrote the generation code to support generation samples using multiple GPUs.
 ```
   # Please check:
     generation_mgpus_{task}_{dataset}.py
