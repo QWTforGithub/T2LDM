@@ -61,7 +61,7 @@ The network framework of T2LDM is flexible. We can easily adjust the framework o
 ```
 
 ### 5. Supporting T5 Text Encoder
-We add the **_T5_** on T2LDM.
+We add the [ [T5](https://arxiv.org/abs/1910.10683) ] on T2LDM.
 ```
   # Please check: 
     models/T5/T5.py
