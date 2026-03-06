@@ -87,7 +87,7 @@ We add the **_T5_** on T2LDM.
 ## Installation
 
 ### Requirements
-The following environment is recommended for running **_CDSegNet_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):
+The following environment is recommended for running **_T2LDM_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):
 - Ubuntu: 18.04 and above
 - gcc/g++: 11.4 and above
 - CUDA: 12.1
