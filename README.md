@@ -96,7 +96,7 @@ The following environment is recommended for running **_CDSegNet_** (four NVIDIA
 
 ### Environment
 
-#### Using environments.ymal
+#### Using environments.yaml
 ```
   cd envs
   conda env create -f environment.yaml
