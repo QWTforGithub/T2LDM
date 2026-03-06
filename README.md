@@ -177,8 +177,10 @@ We find the best result for joint training of GN and DN
 
 ### Generation
 The results are in the 'test/{time}_{stpes}_ddpm{sample num}_{task}_{dataset}_{random seed}' folder.<br/>
-The generation configuration is not related to the dataset configuration.
-
+The generation configuration is not related to the dataset configuration. <br/>
+1) Deploying the conda environment
+2) Downloading the checkpoint of nuScenes
+   
 ```
   # Changing the checkpoint path on: 
   #   ckpt = "xx.pth"
