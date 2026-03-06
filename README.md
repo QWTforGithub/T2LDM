@@ -96,7 +96,7 @@ The following environment is recommended for running **_CDSegNet_** (four NVIDIA
 
 ### Environment
 
-#### Using environments.yaml
+#### Using environments.yaml (based on conda command)
 ```
   cd envs
   conda env create -f environment.yaml
@@ -105,10 +105,12 @@ The following environment is recommended for running **_CDSegNet_** (four NVIDIA
   python setup.py install
 ```
 
-#### Using requirements.txt
+#### Using requirements.txt (based on pip command)
 ```
   conda create -n t2ldm python=3.10 -y
   conda activate t2ldm
+
+  cd envs
 
   pip install -r requirements.txt
 
