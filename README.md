@@ -24,9 +24,9 @@ If you find our paper useful to your research, please cite our work as an acknow
 **_T2LDM_** is built upon the codebase of **_R2DM_** and **_Text2LiDAR_**. We further refine and optimize this codebase with the hope of contributing to the LiDAR generation community.
 
 ### 1. Simple Dataset Form
-The original dataloader follows a TensorFlow-style design, which is not convenient for reading and debugging. T2LDM follows a PyTorch-style implementation and introduces a validation dataset(ConditionalX0) to facilitate monitoring intermediate generation results.
+The original dataset follows a TensorFlow-style design, which is not convenient for reading and debugging. T2LDM follows a PyTorch-style implementation and introduces a validation dataset(ConditionalX0) to facilitate monitoring intermediate generation results.
 ```
-  # If you want to create your a new Dataloader, please check:
+  # If you want to create your dataset, please check:
     data/new_dataset/new_dataset.py
 ```
 
