@@ -169,7 +169,7 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 We find the best result for joint training of GN and DN
 ```
   # Training on nuScenes for frozen GN and trainable DN on 0-40W Steps
-  accelerate launch train_unconditional_nuScenes_gn.py 2>&1 | tee train.log
+  accelerate launch train_unconditional_nuScenes_gn_full_scrg.py 2>&1 | tee train.log
 ```
 
 ### Generation
