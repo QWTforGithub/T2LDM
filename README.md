@@ -158,7 +158,7 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
   # Joint training on nuScenes for GN and DN on 0-10W Steps
   accelerate launch train_unconditional_nuScenes_gn_stage1.py 2>&1 | tee train.log
   
-  # Adding the frozen GN path on
+  # Adding the frozen GN path on (this is an End-to-End process, due to loading the optimizer and lr_schedule parameters)
   #   utils/train_unconditional_nuScenes_gn_stage2.py
   #   pretrained_checkpoint_dir: str = "XX.pth"
   
