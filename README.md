@@ -196,6 +196,7 @@ The generation configuration is not related to the dataset configuration. <br/>
 ```
   # Changing the checkpoint path on: 
   #   ckpt = "xx.pth"
+  #   sampling_steps = 1024 # 64 
   
   # Genration for nuScenes
   accelerate launch --main_process_port 29501  generate_mgpus_unconditional_nuScenes.py 2>&1 | tee test.log
