@@ -144,6 +144,7 @@ As I rewrite the code of T2LDM, I have to retrain T2LDM. And I train T2LDM using
 |    Frozen SCRG on 10W Steps     |                                                                                        --                                                                                         |                                                                                         |
 | Full Training SCRG on 40W Steps | [Baidu Disk](https://pan.baidu.com/s/1FPwkhLbPHapUwskA8uegyA?pwd=1111), [Google Cloud Disk](https://drive.google.com/file/d/1F7t3gzUhQb_oJ6yO0Xrp0f_ZnVHUrVP8/view?usp=sharing) | [Baidu Disk](https://pan.baidu.com/s/1o-ejSMipUa7IpJN3FvEjiw?pwd=1111), [Google Disk](https://drive.google.com/file/d/1vKowjTH55FRLv5rL6BJ4-s-Jv3pVQs70/view?usp=sharing) |
 
+<img src="assets/fig4.png" alt="t2ldm" width="900"/> <br/>
 
 ## Quick Start
 
