@@ -167,7 +167,7 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
   #  utils/config_unconditional_nuScenes_gn_stage1.py
   #  utils/config_unconditional_nuScenes_gn_stage2.py
 
-  # Important! Please set the num_steps(stage1.py) = num_step(stage2.py) to ensure the same parameters of optimizer and schedule.
+  # Important! Please set the num_steps(stage1.py) = num_step(stage2.py) to ensure the parameter continuity of optimizer and schedule.
 
   # Joint training on nuScenes for GN and DN on 0-10W Steps
   accelerate launch train_unconditional_nuScenes_gn_stage1.py 2>&1 | tee train.log
