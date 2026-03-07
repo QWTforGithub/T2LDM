@@ -114,7 +114,7 @@ class TrainingConfig:
     train_depth: bool = True
     train_reflectance: bool = True
     train_mask: bool = True # True
-    num_steps: int = 200_000 # 8 GPUs ==> 400_000, 4 GPUs ==> 800_000
+    num_steps: int = 800_000 # 8 GPUs ==> 400_000, 4 GPUs ==> 800_000
     save_sample_steps: int =  10_000# 5_000 # 10_000 # 1
     save_model_steps: int =  10_000 # 1
     gradient_accumulation_steps: int = 1
