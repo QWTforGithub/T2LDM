@@ -201,7 +201,7 @@ def preprocess(
     else:
         return x, new_texts, texts, semantic
 
-def lrepa_cosine_single(
+def lrepa__single(
         feat_s: torch.Tensor,
         feat_t: torch.Tensor,
         eps: float = 1e-6,
@@ -857,6 +857,7 @@ def get_cosine_schedule_with_warmup(
     num_training_steps: int,
     num_cycles: float = 0.5,
     last_epoch: int = -1,
+    min_lr_multiplier: float = 0.01
 ):
     def lr_lambda(current_step):
         if current_step < num_warmup_steps:
@@ -865,7 +866,7 @@ def get_cosine_schedule_with_warmup(
             max(1, num_training_steps - num_warmup_steps)
         )
         return max(
-            0.0, 0.5 * (1.0 + math.cos(math.pi * float(num_cycles) * 2.0 * progress))
+            min_lr_multiplier, 0.5 * (1.0 + math.cos(math.pi * float(num_cycles) * 2.0 * progress))
         )
 
     return LambdaLR(optimizer, lr_lambda, last_epoch)
@@ -2143,6 +2144,7 @@ if __name__ == '__main__':
 
 
     pass
+
 
 
 
