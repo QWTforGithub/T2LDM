@@ -169,10 +169,10 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 
   # Important! Please set the num_steps(stage1.py) = num_step(stage2.py) to ensure the parameter continuity of optimizer and schedule.
 
-  # Joint training on nuScenes for GN and DN on 0-10W Steps
+  # Joint training on nuScenes for GN and DN on 0-10W Steps (10W on 8 GPUs, 20W on 4 GPUs).
   accelerate launch train_unconditional_nuScenes_gn_stage1.py 2>&1 | tee train.log
   
-  # Adding the frozen GN path on (freezing GN is an End-to-End process, due to loading the optimizer and lr_schedule parameters)
+  # When finishing the 10W iterations, please add the frozen GN path on (freezing GN is an End-to-End process, due to loading the optimizer and lr_schedule parameters)
   #   utils/train_unconditional_nuScenes_gn_stage2.py
   #   pretrained_checkpoint_dir: str = "XX.pth"
   
