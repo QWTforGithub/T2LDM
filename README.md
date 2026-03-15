@@ -137,7 +137,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
 
 
 ## Model Zoo
-We create a Huggingface project for [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). Please download something from Huggingface.<br/>
+We create a Huggingface project(QWTforHuggingFace/T2LDM) for [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). Please download something from Huggingface.<br/>
 <br/>
 I am very sorry for no space of my Google Cloud Disk. Please download something by the Baidu Disk. <br/>
 As I rewrote the code of T2LDM, I have to retrain T2LDM. However, I currently don't have eight 4090 NVIDIA GPUs, so T2LDM is retrained on four 3090 NVIDIA GPUs. 
