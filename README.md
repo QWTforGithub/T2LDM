@@ -124,7 +124,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
 ## Data Preparation
 
 ### nuScenes
-- Download the official [nuScenes](https://www.nuscenes.org/nuscenes#download) (or [Baidu Disk](https://pan.baidu.com/s/1Rsbi-Q_2EUm05lwQgn8T3Q?pwd=1111)(code:1111)) dataset (with Lidar Segmentation) and organize the downloaded files as follows:
+- 1. Download the official [nuScenes](https://www.nuscenes.org/nuscenes#download) (or [Baidu Disk](https://pan.baidu.com/s/1Rsbi-Q_2EUm05lwQgn8T3Q?pwd=1111)(code:1111)) dataset (with Lidar Segmentation) and organize the downloaded files as follows:
   ```bash
   nuScenes
   │── samples
@@ -134,6 +134,14 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   │── v1.0-trainval 
   │── v1.0-test
   ```
+- 2. Download the pkl files (nuscenes_infos_10sweeps_train.pkl and nuscenes_infos_10sweeps_val.pkl) from the Huggingface project of [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
+  ```
+  # Running data/nuScenes/descriptor.py to **generate nuscenes_infos_10sweeps_description.pkl**.
+  ROOT_PATH = "Your the path of pkl files"
+  python descriptor.py
+  ```
+- 3. Of course, you also can download the processed **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
+
 
 
 ## Model Zoo
