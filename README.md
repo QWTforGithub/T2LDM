@@ -134,13 +134,13 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   │── v1.0-trainval 
   │── v1.0-test
   ```
-- 2. Download the pkl files (nuscenes_infos_10sweeps_train.pkl and nuscenes_infos_10sweeps_val.pkl) from the Huggingface project of [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
+- 2. Download the pkl files (**nuscenes_infos_10sweeps_train.pkl** and **nuscenes_infos_10sweeps_val.pkl**) from the Huggingface project of [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
   ```
-  # Running data/nuScenes/descriptor.py to **generate nuscenes_infos_10sweeps_description.pkl**.
+  # Running data/nuScenes/descriptor.py to generate nuscenes_infos_10sweeps_description.pkl.
   ROOT_PATH = "Your the path of pkl files"
   python descriptor.py
   ```
-- 3. Of course, you also can download the processed **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
+- 3. Of course, you also can download **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). This size is about 9.33GB.
 
 
 
