@@ -293,7 +293,7 @@ def eval_results(
     sample_folder ="20251017T071730_400000_1024_text_False",
     dataset = 'nuscenes', # nuscenes kitti360
     metrics = ['mmd', 'jsd', 'fsvd', 'fpvd'],  # specify metrics to evaluate, ['mmd', 'jsd', 'frid', 'fsvd', 'fpvd']
-    mmd_kitti_path = None,
+    mmd_kitti_path = "",
     use_reference = False
 ):
 
@@ -305,11 +305,14 @@ def eval_results(
         elif(dataset == "kitti360"):
             reference = get_kitti360_points()
 
-            if(os.path.exists(mmd_kitti_path)):
-                index = common.read_pkl(mmd_kitti_path)
-            else:
-                index = random.sample(range(len(reference)), 2000)
-                common.save_pkl(save_path=mmd_kitti_path, infos=index)
+            if(metrics.__contains__("mmd")):
+                if(mmd_kitti_path != "" and os.path.exists(mmd_kitti_path)):
+                    index = common.read_pkl(mmd_kitti_path)
+                else:
+                    index = random.sample(range(len(reference)), 2000)
+                    common.save_pkl(save_path=mmd_kitti_path, infos=index)
+
+                mmd_kitti = [reference[i] for i in index])
 
             mmd_kitti = [reference[i] for i in index]
     samples = get_generated_points(sample_folder)  # 生成的点云
