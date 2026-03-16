@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     ckpt = f"{root_path}/logs/diffusion/{task}/{log}/models/{name}"
 
-    seed = 22# 42#22
+    seed = 22# [18,  22,  25,  28,  33,  202, 204, 208, 209, 234,   236, 244, 265, 273, 281,   286, 287, 304, 307, 355]
     batch_size = 8 # 64
     sampling_steps = 1024 # 1024
     sampling_mode = "ddpm"
