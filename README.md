@@ -153,7 +153,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   │── 2013_05_28_drive_0009_sync
   │── 2013_05_28_drive_0010_sync
 ```
-- 2. Of course, you also download the KITTI360 address on [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg).
+- 2. Of course, you also download the KITTI360 address on [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).
 
 ## Model Zoo
 We create a Huggingface project (QWTforHuggingFace/T2LDM) for [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). Please download something from Huggingface.<br/>
@@ -174,7 +174,7 @@ Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.
 |              Model              |                                                                                      Samples                                                                                      |                                         checkpoint                                      |
 |:-------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
 |    Frozen SCRG on 10W Steps     | -- | -- |
-| Full Training SCRG on 40W Steps | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
+| Full Training SCRG on 40W Steps | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) |
 
 Some results from T2LDM with the Full Training SCRG checkpoint on KITTI360 (Sorry, I am too lazy to draw. Please see [Examples](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg)).
 
