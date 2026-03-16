@@ -218,6 +218,9 @@ The generation configuration is not related to the dataset configuration. <br/>
   #   ckpt = "xx.pth"
   #   sampling_steps = 1024 # 64 
   
-  # Genration for nuScenes
+  # Unconditional Genration for nuScenes
   accelerate launch --main_process_port 29501  generate_mgpus_unconditional_nuScenes.py 2>&1 | tee test.log
+
+  # Unconditional Genration for KITTI360
+  accelerate launch --main_process_port 29501  generate_mgpus_unconditional_KITTI360.py 2>&1 | tee test.log
 ```
