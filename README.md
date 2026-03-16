@@ -156,8 +156,16 @@ As I rewrote the code of T2LDM, I have to retrain T2LDM. However, I currently do
 |    Frozen SCRG on 10W Steps     | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
 | Full Training SCRG on 40W Steps | [Baidu Disk](https://pan.baidu.com/s/1FPwkhLbPHapUwskA8uegyA?pwd=1111), [Google Cloud Disk](https://drive.google.com/file/d/1F7t3gzUhQb_oJ6yO0Xrp0f_ZnVHUrVP8/view?usp=sharing) | [Baidu Disk](https://pan.baidu.com/s/1o-ejSMipUa7IpJN3FvEjiw?pwd=1111), [Google Disk](https://drive.google.com/file/d/1vKowjTH55FRLv5rL6BJ4-s-Jv3pVQs70/view?usp=sharing) |
 
-Some results from T2LDM with the Full Training SCRG checkpoint.
+Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.
 <img src="assets/fig4.png" alt="t2ldm" width="900"/> <br/>
+
+### KITTI360
+|              Model              |                                                                                      Samples                                                                                      |                                         checkpoint                                      |
+|:-------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
+|    Frozen SCRG on 10W Steps     | -- | -- |
+| Full Training SCRG on 40W Steps | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
+
+Some results from T2LDM with the Full Training SCRG checkpoint on KITTI360 (Sorry, I am too lazy tp draw. Please see [Examples](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg)).
 
 ## Quick Start
 
