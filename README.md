@@ -126,7 +126,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
 ### nuScenes
 - 1. Download the official [nuScenes](https://www.nuscenes.org/nuscenes#download) (or [Baidu Disk](https://pan.baidu.com/s/1Rsbi-Q_2EUm05lwQgn8T3Q?pwd=1111)(code:1111)) dataset (with Lidar Segmentation) and organize the downloaded files as follows:
   ```bash
-  nuScenes
+  /root/dataset/rsd_data/nuscenes/v1.0-trainval
   │── samples
   │── sweeps
   │── lidarseg
@@ -142,7 +142,18 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   ```
 - 3. Of course, you also can download **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). This size is about 9.33GB.
 
-
+### KITTI360
+- 1. Dowload the official [KITTI360 (Raw Velodyne Scans (119G))](https://www.cvlibs.net/datasets/kitti-360/download.php) and organize the download files as follows:
+```
+  /root/dataset/KITTI360/data_3d_raw
+  │── 2013_05_28_drive_0000_sync
+  │── 2013_05_28_drive_0002_sync
+  │── 2013_05_28_drive_0003_sync
+  ...
+  │── 2013_05_28_drive_0009_sync
+  │── 2013_05_28_drive_0010_sync
+```
+- 2. Of course, you also download the KITTI360 address on [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg).
 
 ## Model Zoo
 We create a Huggingface project (QWTforHuggingFace/T2LDM) for [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). Please download something from Huggingface.<br/>
