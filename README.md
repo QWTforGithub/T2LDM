@@ -206,7 +206,7 @@ The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
   # When finishing the 10W iterations, please add the frozen GN path on (freezing GN is an End-to-End process, due to loading the optimizer and lr_schedule parameters)
   #   utils/train_unconditional_nuScenes_gn_stage2.py
   #   pretrained_checkpoint_dir: str = "XX.pth"
-  
+
   # Training on nuScenes for frozen GN and trainable DN on 10-40W Steps
   accelerate launch train_unconditional_nuScenes_gn_stage2.py 2>&1 | tee train.log
 
