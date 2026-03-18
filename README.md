@@ -216,7 +216,7 @@ We find the best result for joint training of GN and DN
   # Changing the dataset path on: 
   #  utils/config_unconditional_nuScenes_gn_full_scrg.py
 
-  # Training on nuScenes for frozen GN and trainable DN on 0-40W Steps
+  # Training on nuScenes for trainable GN and trainable DN on 0-40W Steps
   accelerate launch train_unconditional_nuScenes_gn_full_scrg.py 2>&1 | tee train.log
 ```
 
