@@ -140,7 +140,9 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   ROOT_PATH = "Your the path of pkl files"
   python descriptor.py
   ```
-- 3. Of course, you also can download **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). This size is about 9.33GB.
+- 3. Of course, you also can download **generate nuscenes_infos_10sweeps_description.pkl** from [T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). This size is about 9.33GB.<br/>
+     Meanwhile, you can only download **point cloud files of nuScenes**: [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).<br/>
+     This means that  this is allowed you to retrain T2LDM using **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
 
 ### KITTI360
 - 1. Dowload the official [KITTI360 (Raw Velodyne Scans (119G))](https://www.cvlibs.net/datasets/kitti-360/download.php) and organize the download files as follows:
