@@ -72,10 +72,10 @@ We add [ [T5](https://arxiv.org/abs/1910.10683) ] on T2LDM.
 ```
 
 ### Adding Some Tricks from Papers
-1) [ [JIT](https://arxiv.org/abs/2511.13720) ]
-2) [ [Gated Attention](https://arxiv.org/pdf/2505.06708) ]
-3) [ [FreeU](https://openaccess.thecvf.com/content/CVPR2024/papers/Si_FreeU_Free_Lunch_in_Diffusion_U-Net_CVPR_2024_paper.pdf) ]
-4) [ [ScaleLong](https://proceedings.neurips.cc/paper_files/paper/2023/file/ded98d28f82342a39f371c013dfb3058-Paper-Conference.pdf) ]
+1) [ [JIT(Back to Basics: Let Denoising Generative Models Denoise)](https://arxiv.org/abs/2511.13720) ]
+2) [ [Gated Attention(Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free, NeurIPS 2025, Best Paper)](https://arxiv.org/pdf/2505.06708) ]
+3) [ [FreeU(FreeU: Free Lunch in Diffusion U-Net, CVPR 2024, Oral)](https://openaccess.thecvf.com/content/CVPR2024/papers/Si_FreeU_Free_Lunch_in_Diffusion_U-Net_CVPR_2024_paper.pdf) ]
+4) [ [ScaleLong(ScaleLong: Towards More Stable Training of Diffusion Model via Scaling Network Long Skip Connection, NeurIPS 2023)](https://proceedings.neurips.cc/paper_files/paper/2023/file/ded98d28f82342a39f371c013dfb3058-Paper-Conference.pdf) ]
 
 
 ## Overview
