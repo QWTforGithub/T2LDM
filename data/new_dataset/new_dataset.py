@@ -134,7 +134,7 @@ class NewDataset(Dataset):
             "semantic": range_image[[5]] / self.semantic_class_num,         # (1, H, W)
             "depth": range_image[[6]],                                      # (1, H, W)
             "mask": range_image[[7]],                                       # (1, H, W)
-            "text": lidar_description,                                      # String
+            "text": lidar_description,                                      # Text Description
             "semantic_org": self.lidar_semantic[idx],
         }
 
