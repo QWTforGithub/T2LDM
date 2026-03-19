@@ -146,7 +146,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
      This means that  this is allowed you to retrain T2LDM using **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
 
 #### T2LnuScenes++ (107816 Text-LiDAR Pairs)
-Please check data/nuScenes/description_plus_class.txt and data/nuScenes/description_plus_text.txt to know the related information for **T2LnuScenes++**.
+Please check **data/nuScenes/description_plus_class.txt** and **data/nuScenes/description_plus_text.txt** to know the related information for **T2LnuScenes++**.
 
 - 1. Generating the **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
    ```
