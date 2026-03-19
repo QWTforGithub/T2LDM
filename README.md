@@ -146,13 +146,15 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
      This means that  this is allowed you to retrain T2LDM using **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
 
 #### T2LnuScenes++ (107816 Text-LiDAR Pairs)
+Please check data/nuScenes/description_plus_class.txt and data/nuScenes/description_plus_text.txt to know the related information for **T2LnuScenes++**.
+
 - 1. Generating the **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
    ```
   # Running data/nuScenes/descriptor_plus.py to generate text.pkl.
   ROOT_PATH = "Your the path of pkl files"
   python descriptor_plus.py
   ```
-- 2. Of course, you also can download **text.pkl** from [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address)
+- 2. Of course, you also can download **text.pkl** from [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).
 
 ### KITTI360
 - 1. Dowload the official [KITTI360 (Raw Velodyne Scans (119G))](https://www.cvlibs.net/datasets/kitti-360/download.php) and organize the download files as follows:
