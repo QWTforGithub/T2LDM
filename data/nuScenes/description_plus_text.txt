@@ -1,0 +1,52 @@
+107816
+Two cars. : 2099
+One car is to the right of one pedestrian. : 6679
+The scene contains one car and one truck. : 6410
+Cars and trafficcones. : 3244
+One car is to the right of one truck. : 3443
+The scene contains one car and one trafficcone. : 3240
+One car is facing forward. : 3000
+Cars and trucks. : 6503
+One car is to the right of one trafficcone. : 1869
+One car is facing right. : 3000
+Cars and pedestrians. : 3000
+One car is to the left of one truck. : 3006
+One car. : 1873
+The scene contains one car and one constructionvehicle. : 824
+One car is to the left of one pedestrian. : 5488
+The scene contains one car and one pedestrian. : 3000
+No cars. : 857
+There are no cars. : 857
+A scene with no cars. : 857
+One car is to the left of one barrier. : 1856
+The scene contains one car and one barrier. : 4059
+Cars and constructionvehicles. : 796
+Cars and barriers. : 4073
+More than five cars. : 3000
+One car is facing backward. : 3000
+One car is to the right of one barrier. : 2251
+One car is to the right of one constructionvehicle. : 435
+Cars and motorcycles. : 1436
+The scene contains one car and one motorcycle. : 1470
+Five cars. : 1653
+Four cars. : 1842
+One car is to the right of one bicycle. : 575
+One car is to the right of one motorcycle. : 783
+The scene contains one car and one bicycle. : 1005
+Three cars. : 2368
+One car is to the left of one trafficcone. : 1408
+Cars and bicycles. : 968
+One car is facing left. : 3000
+One car is to the left of one constructionvehicle. : 404
+One car is to the left of one motorcycle. : 633
+One car is to the right of one bus. : 849
+Cars and buses. : 1676
+The scene contains one car and one bus. : 1671
+One car is to the left of one bus. : 844
+One car is to the left of one bicycle. : 439
+Cars and trailers. : 1394
+One car is to the right of one trailer. : 752
+The scene contains one car and one trailer. : 1408
+One car is to the left of one trailer. : 637
+There are cars. : 941
+The scene contains one car. : 941
