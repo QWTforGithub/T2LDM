@@ -1565,8 +1565,8 @@ def generate_descirption_pkl():
 
 if __name__ == '__main__':
 
-    # generate_descirption_pkl()
+    generate_descirption_pkl()
     # point_description()
-    copy_train_val_bin()
+    # copy_train_val_bin()
     pass
 
