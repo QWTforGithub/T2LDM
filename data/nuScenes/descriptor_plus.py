@@ -18,7 +18,7 @@ import re
 from tqdm import tqdm
 
 ROOT_PATH = "/ihoment/youjie10/qwt/dataset/nuscenes/v1.0-trainval"
-DESCRIPTION = "nuscenes_infos_10sweeps_description_test.pkl"
+DESCRIPTION = "nuscenes_infos_10sweeps_description.pkl"
 NUM = 34149
 SEMANTIC_CLASS_NUM = 16
 OBJECT_INDEX = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
