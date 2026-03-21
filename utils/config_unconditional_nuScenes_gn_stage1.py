@@ -138,7 +138,7 @@ class TrainingConfig:
     # ---- diffusion setting ----
     criterion: str = "huber"#"l2"
     diffusion_num_training_steps: int = 1024 #2048
-    diffusion_num_sampling_steps: int = 64 #2048
+    diffusion_num_sampling_steps: int = 1024 #2048
     diffusion_objective: Literal["eps", "v", "x0"] = "v"
     diffusion_prediction: Literal["eps", "v", "x0"] = "v"
     diffusion_beta_schedule: str = "cosine"
