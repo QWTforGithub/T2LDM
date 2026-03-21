@@ -35,7 +35,7 @@ MODALITY2MODEL = {'range': 'rangenet', 'voxel': 'minkowskinet', 'point_voxel': '
 # DATASET_CONFIG = {'kitti': {'size': [64, 1024], 'fov': [3, -25], 'depth_range': [1.0, 56.0], 'depth_scale': 6},
 #                   'nuscenes': {'size': [32, 1024], 'fov': [10, -30], 'depth_range': [1.0, 45.0]}}
 
-DATASET_CONFIG = {'kitti': {'size': [64, 1024], 'fov': [3, -25], 'depth_range': [1.45, 80.0], 'depth_scale': 6},
+DATASET_CONFIG = {'kitti360': {'size': [64, 1024], 'fov': [3, -25], 'depth_range': [1.45, 80.0], 'depth_scale': 6},
                   'nuscenes': {'size': [32, 1024], 'fov': [3, -25], 'depth_range': [0.01, 50.0]}}
 
 def build_model(dataset_name, model_name, device='cpu'):
