@@ -134,7 +134,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   │── v1.0-trainval 
   │── v1.0-test
   ```
-#### T2LnuScenes (34149 Text-LiDAR Pairs)
+#### 1. T2LnuScenes (34149 Text-LiDAR Pairs)
 - 1. Download the pkl files (**nuscenes_infos_10sweeps_train.pkl** and **nuscenes_infos_10sweeps_val.pkl**) from the Huggingface project of [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main).
   ```
   # Running data/nuScenes/descriptor.py to generate nuscenes_infos_10sweeps_description.pkl.
@@ -145,7 +145,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
      Meanwhile, you can only download **point cloud files of nuScenes**: [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).<br/>
      This means that  this is allowed you to retrain T2LDM using **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
 
-#### T2LnuScenes++ (107816 Text-LiDAR Pairs)
+#### 2. T2LnuScenes++ (107816 Text-LiDAR Pairs)
 Please check **data/nuScenes/description_plus_class.txt** and **data/nuScenes/description_plus_text.txt** to know the related information for **T2LnuScenes++**.
 
 - 1. Generating the **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
