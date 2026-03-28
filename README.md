@@ -168,6 +168,19 @@ Please check **data/nuScenes/description_plus_class.txt** and **data/nuScenes/de
   │── 2013_05_28_drive_0010_sync
 ```
 - 2. Of course, you also download the KITTI360 address on [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).
+ 
+### SemanticKITTI
+- 1. Dowload the official [SemanticKITTI (https://semantic-kitti.org/dataset.html) and organize the download files as follows:
+```
+  /root/dataset/SemanticKITTI/dataset/sequences
+  │── 00
+  │── 01
+  │── 02
+  ...
+  │── 20
+  │── 21
+```
+
 
 ## Model Zoo
 We create a Huggingface project (QWTforHuggingFace/T2LDM) for [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). Please download something from Huggingface.<br/>
@@ -176,21 +189,30 @@ I am very sorry for no space of my Google Cloud Disk. Please download something 
 As I rewrote the code of T2LDM, I have to retrain T2LDM. However, I currently don't have eight 4090 NVIDIA GPUs, so T2LDM is retrained on four 3090 NVIDIA GPUs. 
 
 ### nuScenes
-|              Model              |                                                                                      Samples                                                                                      |                                         checkpoint                                      |
-|:-------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
-|    Frozen SCRG on 10W Steps     | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
-| Full Training SCRG on 40W Steps | [Baidu Disk](https://pan.baidu.com/s/1FPwkhLbPHapUwskA8uegyA?pwd=1111), [Google Cloud Disk](https://drive.google.com/file/d/1F7t3gzUhQb_oJ6yO0Xrp0f_ZnVHUrVP8/view?usp=sharing), [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [Baidu Disk](https://pan.baidu.com/s/1o-ejSMipUa7IpJN3FvEjiw?pwd=1111), [Google Disk](https://drive.google.com/file/d/1vKowjTH55FRLv5rL6BJ4-s-Jv3pVQs70/view?usp=sharing), [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
+|              Model              |                    Task                 |                    Samples                 |                checkpoint              |
+|:-------------------------------:|:---------------------------------------:|:------------------------------------------:|:--------------------------------------:|
+|    Frozen SCRG on 10W Steps     |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
+| Full Training SCRG on 40W Steps |         Unconditional Generation        | [Baidu Disk](https://pan.baidu.com/s/1FPwkhLbPHapUwskA8uegyA?pwd=1111), [Google Cloud Disk](https://drive.google.com/file/d/1F7t3gzUhQb_oJ6yO0Xrp0f_ZnVHUrVP8/view?usp=sharing), [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) | [Baidu Disk](https://pan.baidu.com/s/1o-ejSMipUa7IpJN3FvEjiw?pwd=1111), [Google Disk](https://drive.google.com/file/d/1vKowjTH55FRLv5rL6BJ4-s-Jv3pVQs70/view?usp=sharing), [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg) |
 
 Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.
 <img src="assets/fig4.png" alt="t2ldm" width="900"/> <br/>
 
 ### KITTI360
-|              Model              |                                                                                      Samples                                                                                      |                                         checkpoint                                      |
-|:-------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
-|    Frozen SCRG on 10W Steps     | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_frozen_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_frozen_training_scrg) |
-| Full Training SCRG on 40W Steps | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) |
+|              Model              |                    Task                 |                    Samples                 |                checkpoint              |
+|:-------------------------------:|:---------------------------------------:|:------------------------------------------:|:--------------------------------------:|
+|    Frozen SCRG on 10W Steps     |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_frozen_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_frozen_training_scrg) |
+| Full Training SCRG on 40W Steps |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_kitti360_full_training_scrg) |
 
 Some results from T2LDM with the Full Training SCRG checkpoint on KITTI360 (Sorry, I am too lazy to draw. Please see [Examples](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_nuScenes_full_training_scrg)).
+
+### SemanticKITTI
+|              Model              |                    Task                 |                    Samples                 |                checkpoint              |
+|:-------------------------------:|:---------------------------------------:|:------------------------------------------:|:--------------------------------------:|
+|    Frozen SCRG on 10W Steps     |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_frozen_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_frozen_training_scrg) |
+| Full Training SCRG on 40W Steps |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg) |
+
+Some results from T2LDM with the Full Training SCRG checkpoint on SemanticKITTI (Sorry, I am too lazy to draw. Please see [Examples](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg)).
+
 
 ## Quick Start
 
