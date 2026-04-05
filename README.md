@@ -227,7 +227,7 @@ Before the training and sampling, it must deploys the accelerate.
 ### Batch Size & Learning Rate
 For the setting of batch size:
 ```
-  # Please follow the linear regulation for Learning Rate, for example:
+  # Please follow the linear scaling rule for Learning Rate, for example:
   Single GPU = 24G, BS = 4 (nuScenes) per GPU, BS = 2 (KITTI360, SemanticKITTI)  per GPU, lr = 1e-4
   Single GPU = 48G, BS = 8 (nuScenes) per GPU, BS = 4 , lr = 2e-4
   Single GPU = 80G, BS = 16 (nuScenes) per GPU, BS = 8 (KITTI360, SemanticKITTI) per GPU, lr = 4e-4
