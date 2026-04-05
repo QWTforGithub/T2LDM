@@ -224,7 +224,7 @@ Before the training and sampling, it must deploys the accelerate.
   # please finsh the accelerate configuration according to the tips.
 ```
 
-### Batch Size
+### Batch Size & Learning Rate
 For the setting of batch size:
 ```
   # Please follow the linear regulation for Learning Rate, for example:
