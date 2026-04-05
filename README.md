@@ -236,12 +236,12 @@ For the setting of batch size:
 ### Epoch
 For the setting of training epoch:
 ```
-  # Please follow the total iterations = 12,800,000 (nuScenes), the total iterations = 6,400,000 (KITTI360, SemanticKITTI), for example:
-  Single GPU = 24G,  four GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 800,000
-  Single GPU = 24G,  eights GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 400,000
+  # Please follow the total iterations: Num GPU x Batch Size x Num Step = 12,800,000 (nuScenes), the total iterations = 6,400,000 (KITTI360, SemanticKITTI), for example:
+  Single GPU = 24G,  four GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 800,000, 4 x 4 x 800,000 = 12,800,000
+  Single GPU = 24G,  eights GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 400,000, 8 x 4 x 400,000 = 12,800,000
 
-  Single GPU = 24G,  four GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 800,000
-  Single GPU = 24G,  eights GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 400,000
+  Single GPU = 24G,  four GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 800,000, 4 x 2 x 800,000 = 6,400,000
+  Single GPU = 24G,  eights GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 400,000, 8 x 2 x 400,000 = 6,400,000
 ```
 Of course, T2LDM can achieve the better generation results on nuScenes, KITTI360 and SemanticKITTI with more training iterations.
 
