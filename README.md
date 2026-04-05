@@ -224,6 +224,27 @@ Before the training and sampling, it must deploys the accelerate.
   # please finsh the accelerate configuration according to the tips.
 ```
 
+### Batch Size
+For the setting of batch size:
+```
+  # Please follow the linear regulation for Learning Rate, for example:
+  Single GPU = 24G, BS = 4 (nuScenes) per GPU, BS = 2 (KITTI360, SemanticKITTI)  per GPU, lr = 1e-4
+  Single GPU = 48G, BS = 8 (nuScenes) per GPU, BS = 4 , lr = 2e-4
+  Single GPU = 80G, BS = 16 (nuScenes) per GPU, BS = 8 (KITTI360, SemanticKITTI) per GPU, lr = 4e-4
+```
+
+### Epoch
+For the setting of training epoch:
+```
+  # Please follow the total iterations = 12,800,000 (nuScenes), the total iterations = 6,400,000 (KITTI360, SemanticKITTI), for example:
+  Single GPU = 24G,  four GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 800,000
+  Single GPU = 24G,  eights GPUS, BS = 4 (nuScenes) per GPU, EPOCH = 400,000
+
+  Single GPU = 24G,  four GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 800,000
+  Single GPU = 24G,  eights GPUS, BS = 2 (KITTI360, SemanticKITTI) per GPU, EPOCH = 400,000
+```
+Of course, T2LDM can achieve the better generation results on nuScenes, KITTI360 and SemanticKITTI with more training iterations.
+
 ### Training
 The results are in the 'logs/diffusion/{task}/{time}/plys/generation' folder.
 
