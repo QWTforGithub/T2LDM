@@ -299,4 +299,7 @@ The generation configuration is not related to the dataset configuration. <br/>
 
   # Unconditional Genration for KITTI360
   accelerate launch --main_process_port 29501  generate_mgpus_unconditional_KITTI360.py 2>&1 | tee test.log
+
+  # Text-guided Generation
+  # Please use the function "decode_tensor" in common.py to decode the "text_rank_xxx.pkl" and obtain the true text content.
 ```
