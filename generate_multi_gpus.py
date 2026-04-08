@@ -18,9 +18,6 @@ from data.conditional_x0.conditionalx0 import ConditionalX0
 from torch.utils.data import DataLoader
 from models.CLIP.clip import clip
 
-# from models.T2LDM_old import CircularUNet
-# from utils.config_unconditional_nuScenes_gn_old import TrainingConfig
-
 from models.T2LDM import CircularUNet
 import utils.inference_mgpus_unconditional_nuScenes as inference_mgpus
 
