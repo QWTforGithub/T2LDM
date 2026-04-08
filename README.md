@@ -224,6 +224,12 @@ Before the training and sampling, it must deploys the accelerate.
   # please finsh the accelerate configuration according to the tips.
 ```
 
+### Problems with distributed training or generation
+
+This issue is most likely caused by insufficient memory. In distributed training, the file **_nuscenes_infos_10sweeps_description.pkl (9.33 GB)_** is loaded multiple times, which leads to excessive memory usage. In practice, the "semantic" field occupies most of the storage.
+
+To address this, you can split the "semantic" data into multiple .npy files and store only their file paths in the .pkl file. Then, modify dataset.py to load the semantic data on demand.
+
 ### Batch Size & Learning Rate
 For the setting of batch size:
 ```
@@ -292,9 +298,3 @@ The generation configuration is not related to the dataset configuration. <br/>
   # Unconditional Genration for KITTI360
   accelerate launch --main_process_port 29501  generate_mgpus_unconditional_KITTI360.py 2>&1 | tee test.log
 ```
-
-### Problems with distributed training or generation
-
-This issue is most likely caused by insufficient memory. In distributed training, the file **_nuscenes_infos_10sweeps_description.pkl (9.33 GB)_** is loaded multiple times, which leads to excessive memory usage. In practice, the "semantic" field occupies most of the storage.
-
-To address this, you can split the "semantic" data into multiple .npy files and store only their file paths in the .pkl file. Then, modify dataset.py to load the semantic data on demand.
