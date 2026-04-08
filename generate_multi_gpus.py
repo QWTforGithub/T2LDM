@@ -21,10 +21,21 @@ from models.CLIP.clip import clip
 # from models.T2LDM_old import CircularUNet
 # from utils.config_unconditional_nuScenes_gn_old import TrainingConfig
 
-from models.T2LDM_old import CircularUNet
-from utils.config_unconditional_KITTI360_gn_old import TrainingConfig
+from models.T2LDM import CircularUNet
+import utils.inference_mgpus_unconditional_nuScenes as inference_mgpus
 
-import utils.inference_mgpus_unconditional_nuScenes_old as inference_mgpus
+# ---- configuration files ----
+from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
+
+# from utils.config_text_nuScenes_gn_full_scrg import TrainingConfig
+
+# from utils.config_unconditional_KITTI360_gn_full_scrg import TrainingConfig
+
+# from utils.config_unconditional_SemanticKITTI_gn_full_scrg import TrainingConfig
+
+
+# ---- configuration files ----
+
 
 def main(args, cfg):
 
