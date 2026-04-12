@@ -87,7 +87,8 @@ We add [ [T5](https://arxiv.org/abs/1910.10683) ] on T2LDM.
 ## Installation
 
 ### Requirements
-The following environment is recommended for running **_T2LDM_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):
+The following environment is recommended for running **_T2LDM_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):<br/>
+**_If you only want to generate some LiDAR results, the Single 3090(24G)/3060(12G) GPU is enough!_**
 - Ubuntu: 18.04 and above
 - gcc/g++: 11.4 and above
 - CUDA: 12.1
