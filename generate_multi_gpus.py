@@ -73,25 +73,25 @@ def main(args, cfg):
             indent=4,
         )
 
-        config_path = inspect.getfile(TrainingConfig)
-        config_dest_path = os.path.join(dest_path, config_path.split("/")[-1])
-        shutil.copy(config_path, config_dest_path)
-        print(f"Coping config file to {config_dest_path}")
+        # config_path = inspect.getfile(TrainingConfig)
+        # config_dest_path = os.path.join(dest_path, config_path.split("/")[-1])
+        # shutil.copy(config_path, config_dest_path)
+        # print(f"Coping config file to {config_dest_path}")
 
-        net_path = inspect.getfile(CircularUNet)
-        net_dest_path = os.path.join(dest_path, net_path.split("/")[-1])
-        shutil.copy(net_path, net_dest_path)
-        print(f"Coping network file to {net_dest_path}")
+        # net_path = inspect.getfile(CircularUNet)
+        # net_dest_path = os.path.join(dest_path, net_path.split("/")[-1])
+        # shutil.copy(net_path, net_dest_path)
+        # print(f"Coping network file to {net_dest_path}")
 
-        inference_path = str(Path(inference_mgpus.__file__).resolve())
-        inference_dest_path = os.path.join(dest_path, inference_path.split("/")[-1])
-        shutil.copy(inference_path, inference_dest_path)
-        print(f"Coping inference file to {inference_dest_path}")
+        # inference_path = str(Path(inference_mgpus.__file__).resolve())
+        # inference_dest_path = os.path.join(dest_path, inference_path.split("/")[-1])
+        # shutil.copy(inference_path, inference_dest_path)
+        # print(f"Coping inference file to {inference_dest_path}")
 
-        generate_path = str(Path(__file__).resolve())
-        generate_dest_path = os.path.join(dest_path, generate_path.split("/")[-1])
-        shutil.copy(generate_path, generate_dest_path)
-        print(f"Coping generate file to {generate_dest_path}")
+        # generate_path = str(Path(__file__).resolve())
+        # generate_dest_path = os.path.join(dest_path, generate_path.split("/")[-1])
+        # shutil.copy(generate_path, generate_dest_path)
+        # print(f"Coping generate file to {generate_dest_path}")
 
         # train_name = config_path.split("/")[-1].replace("config_","train_")
         # training_path = f"{str(Path(__file__).parent.resolve())}/{train_name}"
