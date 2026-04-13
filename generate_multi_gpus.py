@@ -236,7 +236,8 @@ if __name__ == "__main__":
     batch_size = 32 # 64
     sampling_steps = 1024 # 1024
     sampling_mode = "ddpm"
-    num_steps = int(ckpt.split("?")[-1].split("_")[-1].split(".")[0])
+    # num_steps = int(ckpt.split("?")[-1].split("_")[-1].split(".")[0])
+    num_steps = 400_000
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--ckpt", type=Path, default=ckpt)
