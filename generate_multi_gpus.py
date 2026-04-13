@@ -93,11 +93,11 @@ def main(args, cfg):
         shutil.copy(generate_path, generate_dest_path)
         print(f"Coping generate file to {generate_dest_path}")
 
-        train_name = config_path.split("/")[-1].replace("config_","train_")
-        training_path = f"{str(Path(__file__).parent.resolve())}/{train_name}"
-        training_dest_path = os.path.join(dest_path, training_path.split("/")[-1])
-        shutil.copy(training_path, training_dest_path)
-        print(f"Coping train file to {training_dest_path}")
+        # train_name = config_path.split("/")[-1].replace("config_","train_")
+        # training_path = f"{str(Path(__file__).parent.resolve())}/{train_name}"
+        # training_dest_path = os.path.join(dest_path, training_path.split("/")[-1])
+        # shutil.copy(training_path, training_dest_path)
+        # print(f"Coping train file to {training_dest_path}")
 
         print("\nAccelerator配置信息: ")
         print(accelerator.state)
