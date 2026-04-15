@@ -36,7 +36,7 @@ from utils.lidar import LiDARUtility, get_hdl64e_linear_ray_angles
 from models.T2LDM import CircularUNet
 
 # ---- configuration files ----
-from utils.config_unconditional_KITTI360_gn_full_scrg import TrainingConfig
+from utils.config_unconditional_KITTI360_gn_full_scrg_sample import TrainingConfig
 # ---- configuration files ----
 
 warnings.filterwarnings("ignore", category=UserWarning)
