@@ -285,6 +285,13 @@ We find the best result for joint training of GN and DN
   accelerate launch train_unconditional_nuScenes_gn_full_scrg.py 2>&1 | tee train.log
 ```
 
+### Training Sample for Debug
+We also provide a training sample **_train_full_scrg_uncondtional_KITTI360_sample.py_** on KITTI360. <br/>
+You only need to deploy the training environment. <br/>
+```
+ # Please run train_full_scrg_uncondtional_KITTI360_sample.py on Single GPU for the code debug.
+```
+
 ### Generation
 The results are in the 'test/{time}_{stpes}_ddpm{sample num}_{task}_{dataset}_{random seed}' folder.<br/>
 The generation configuration is not related to the dataset configuration. <br/>
