@@ -19,7 +19,7 @@ from torch.utils.data import DataLoader
 from models.CLIP.clip import clip
 
 from models.T2LDM import CircularUNet
-import utils.inference_multi_gpus.py as inference_mgpus
+import utils.inference_multi_gpus as inference_mgpus
 
 # ---- configuration files ----
 from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
