@@ -24,6 +24,7 @@ class ConditionalX0(Dataset):
             text_keys="text_aim",
             text_path=None,
 
+            use_seg=False,
             semantic_class_num=17.0,
 
             training=True,
@@ -34,7 +35,7 @@ class ConditionalX0(Dataset):
             fov=[3, -25],
 
             type="nuScenes",
-            random_num=-1, # 256
+            random_num=256, # 256
             print_info=True
     ):
 
@@ -124,7 +125,7 @@ class ConditionalX0(Dataset):
                         self.lidar_semantic.append(Path(info["semantic_path"]))
 
 
-            if(random_num > 0):
+            if(random_num > 0 and use_seg):
                 lists = random.sample(range(len(self.lidar_path)), random_num)
                 print(f"list: {lists}")
 
@@ -252,7 +253,8 @@ class ConditionalX0(Dataset):
                 "semantic": range_image[[4]] / self.semantic_class_num,  # (1, H, W)
                 "depth": range_image[[5]],  # (1, H, W)
                 "mask": range_image[[6]],  # (1, H, W)
-                "text": lidar_description,  #
+                "text": lidar_description,
+                "semantic_org": range_image[[4]]  # self.lidar_semantic[idx],
             }
 
         return sample
