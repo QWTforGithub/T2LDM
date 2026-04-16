@@ -71,6 +71,14 @@ We add [ [T5](https://arxiv.org/abs/1910.10683) ] on T2LDM.
     T5_mode: "base" # small(512), base(768), large(1024)
 ```
 
+### 6. Provide an example of PC to RM conversion
+An example of PC to RM conversion is provided to help you understand the conversion process.
+```
+ # Please check:
+   utils/lidar.py
+   python lidar.py
+```
+
 ### Adding Some Tricks from Papers
 1) [ [JIT(Back to Basics: Let Denoising Generative Models Denoise)](https://arxiv.org/abs/2511.13720) ]
 2) [ [Gated Attention(Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free, NeurIPS 2025, Best Paper)](https://arxiv.org/pdf/2505.06708) ]
