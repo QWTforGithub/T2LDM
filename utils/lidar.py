@@ -321,68 +321,27 @@ def get_lidars(
 
 if __name__ == '__main__':
 
-    # from utils import common
-    #
-    # resolution = (32,2048) # (32,1024) (64, 1024)
-    # depth_range = (0.01,50.0) # (0.0001,50.0) (1.45, 80.0)
-    # fov = (3,-25)
-    #
-    # li = LiDARUtility(
-    #     resolution=resolution,
-    #     depth_range=depth_range,
-    #     fov=fov,
-    #     project_dir="/data/qwt/temp"
-    # )
-    #
-    # ply_path = "/data/qwt/temp/1526915630897851.pcd.bin.ply"
-    #
-    # pc = open3d.io.read_point_cloud(ply_path)
-    # points = np.asarray(pc.points)
-    #
-    # points = torch.from_numpy(points)
-    #
-    # points = common.midpoint_interpolate(points.unsqueeze(0).permute(0,2,1).cuda(), up_rate=2).cpu()
-    # points = points.permute(0,2,1).squeeze()
-    #
-    # range_img = common.points_as_images_torch(points, size=resolution).permute(2, 0, 1)
-    #
-    # # ---- 保存 ----
-    # depth = range_img.squeeze().numpy()
-    # common.save_img("/data/qwt/temp/depth.png", img=depth, depth_color=True)
-    # # ---- 保存 ----
-    #
-    # range_img = range_img.unsqueeze_(0)
-    #
-    # range_img = li.convert_depth(range_img)
-    # range_img = li.normalize(range_img)
-    #
-    # # ---- 保存 ----
-    # li.sample_to_lidar(metric=range_img)
-    # # ---- 保存 ----
-
     from utils import common
 
-    resolution = (32,1024) # (64,1024)
-    depth_range = (0.01,50.0)  # (1.45,80.0)
+    # lidar_filename = 'sample_data/nuScenes.bin'
+    # resolution = (32,1024) # (64,1024)
+    # depth_range = (0.01,50.0)  # (1.45,80.0)
+    # points = common.get_lidar_sweep(lidar_filename,dim=5)
+
+    lidar_filename = 'sample_data/KITTI360.bin'
+    resolution = (64,1024) # (64,1024)
+    depth_range = (1.45,80.0)  # (1.45,80.0)
+    points = common.get_lidar_sweep(lidar_filename,dim=4)
+
     fov = (3,-25)
+    root_path = "sample_data"
 
     li = LiDARUtility(
         resolution=resolution,
         depth_range=depth_range,
         fov=fov,
-        project_dir="/data/qwt/temp"
+        project_dir=root_path
     )
-
-    # 532,1024,11458,
-    lidar_filename = '/data/qwt/dataset/kitti360/KITTI-360/data_3d_raw/2013_05_28_drive_0000_sync/velodyne_points/data/0000011458.bin'
-    lidar_filename = '/data/qwt/dataset/nuscenes/raw/samples/LIDAR_TOP/n008-2018-09-18-13-10-39-0400__LIDAR_TOP__1537290847200028.pcd.bin'
-    # lidar_filename = '/data/qwt/dataset/nuscenes/raw/samples/LIDAR_TOP/n008-2018-09-18-14-43-59-0400__LIDAR_TOP__1537296489198821.pcd.bin'
-    # lidar_filename = '/data/qwt/dataset/nuscenes/raw/samples/LIDAR_TOP/n008-2018-08-28-16-16-48-0400__LIDAR_TOP__1535487741196823.pcd.bin'
-    # lidar_filename = '/data/qwt/dataset/nuscenes/raw/samples/LIDAR_TOP/n008-2018-08-29-16-04-13-0400__LIDAR_TOP__1535573300398646.pcd.bin'
-
-
-    # points = common.get_lidar_sweep(lidar_filename, return_intensity=True, return_time=True, dim=5)
-    points = common.get_lidar_sweep(lidar_filename,dim=5)
 
     range_img = common.points_as_images(
         points=points,
@@ -392,17 +351,25 @@ if __name__ == '__main__':
         return_all=False
     ).transpose(2, 0, 1)
 
+    # ---- save the range map from point cloud ----
+    common.save_depth_vis(depth=range_img, save_path=f"{root_path}/depth_vis.png")
+    # ---- save the range map from point cloud ----
+
     range_img = np.expand_dims(range_img, axis=0)
     range_img = torch.from_numpy(range_img)
 
     range_img = li.convert_depth(range_img)
     range_img = li.normalize(range_img)
 
+    # ---- save the point cloud from range map, in the generation folder ----
     li.sample_to_lidar(range_img)
+    # ---- save the point cloud from range map, in the generation folder ----
 
     name = lidar_filename.split("/")[-1].split("__")[-1]
 
+    # ---- save the point cloud from range map ----
     li.save_pointcloud(xyz=points[:,:3], name=f"{li.project_dir}/{name}.ply")
+    # ---- save the point cloud from range map ----
 
     pass
 
