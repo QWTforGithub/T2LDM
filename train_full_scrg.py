@@ -47,7 +47,48 @@ from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
 # from utils.config_semantic_nuScenes_gn import TrainingConfig
 
 # from utils.config_semantic_semantikitti_gn import TrainingConfig
+
+# from utils.config_sparsetodense_nuScenes_gn import TrainingConfig
 # ---- configuration files ----
+
+import dataclasses
+import datetime
+import json
+import os
+import warnings
+import random
+import einops
+import matplotlib.cm as cm
+import torch
+import torch._dynamo
+import torch.nn.functional as F
+import inspect
+import shutil
+
+from accelerate import Accelerator
+from ema_pytorch import EMA
+from simple_parsing import ArgumentParser
+from accelerate.utils import broadcast
+from torch.utils.data import DataLoader
+from tqdm.auto import tqdm
+from utils import common
+from data.kitti_360.kitti_360 import KITTI360Dataset
+from data.kitti_semantic.kitti_semantic import KITTISemanticDataset
+from data.nuScenes.nuScenes import NuScenesDataset
+from data.conditional_x0.conditionalx0 import ConditionalX0
+from pathlib import Path
+from models.CLIP.clip import clip
+from models.T5.T5 import t5
+import utils.render
+from models.diffusion import (
+    ContinuousTimeGaussianDiffusion,
+    DiscreteTimeGaussianDiffusion,
+    GaussianDiffusion
+)
+from utils.lidar import LiDARUtility, get_hdl64e_linear_ray_angles
+
+from models.T2LDM_old import CircularUNet
+from utils.config_sparsetodense_nuScenes_gn import TrainingConfig
 
 warnings.filterwarnings("ignore", category=UserWarning)
 torch._dynamo.config.suppress_errors = True
@@ -55,7 +96,7 @@ torch._dynamo.config.suppress_errors = True
 
 def train(cfg):
     torch.backends.cudnn.benchmark = True
-    project_dir = Path(cfg.output_dir) / f"unconditional_{cfg.dataset}_gn"
+    project_dir = Path(cfg.output_dir) / f"sparsetodense_{cfg.dataset}_gn"
     project_name = datetime.datetime.now().strftime("%Y%m]%dT%H%M%S")
     print_info = cfg.print_info
     # =================================================================================
@@ -87,30 +128,30 @@ def train(cfg):
         dest_path = project_dir / project_name
         os.makedirs(dest_path, exist_ok=True)
 
-        ContinuousTimeGaussianDiffusion_path = inspect.getfile(ContinuousTimeGaussianDiffusion)
-        ContinuousTimeGaussianDiffusion_dest_path = dest_path / ContinuousTimeGaussianDiffusion_path.split("/")[-1]
-        shutil.copy(ContinuousTimeGaussianDiffusion_path, ContinuousTimeGaussianDiffusion_dest_path)
-        print(f"Coping ContinuousTimeGaussianDiffusion file to {ContinuousTimeGaussianDiffusion_dest_path}")
+        # ContinuousTimeGaussianDiffusion_path = inspect.getfile(ContinuousTimeGaussianDiffusion)
+        # ContinuousTimeGaussianDiffusion_dest_path = dest_path / ContinuousTimeGaussianDiffusion_path.split("/")[-1]
+        # shutil.copy(ContinuousTimeGaussianDiffusion_path, ContinuousTimeGaussianDiffusion_dest_path)
+        # print(f"Coping ContinuousTimeGaussianDiffusion file to {ContinuousTimeGaussianDiffusion_dest_path}")
 
-        GaussianDiffusion_path = inspect.getfile(GaussianDiffusion)
-        GaussianDiffusion_dest_path = dest_path / GaussianDiffusion_path.split("/")[-1]
-        shutil.copy(GaussianDiffusion_path, GaussianDiffusion_dest_path)
-        print(f"Coping GaussianDiffusion file to {GaussianDiffusion_dest_path}")
+        # GaussianDiffusion_path = inspect.getfile(GaussianDiffusion)
+        # GaussianDiffusion_dest_path = dest_path / GaussianDiffusion_path.split("/")[-1]
+        # shutil.copy(GaussianDiffusion_path, GaussianDiffusion_dest_path)
+        # print(f"Coping GaussianDiffusion file to {GaussianDiffusion_dest_path}")
 
-        config_path = inspect.getfile(TrainingConfig)
-        config_dest_path = dest_path / config_path.split("/")[-1]
-        shutil.copy(config_path, config_dest_path)
-        print(f"Coping config file to {config_dest_path}")
+        # config_path = inspect.getfile(TrainingConfig)
+        # config_dest_path = dest_path / config_path.split("/")[-1]
+        # shutil.copy(config_path, config_dest_path)
+        # print(f"Coping config file to {config_dest_path}")
 
-        net_path = inspect.getfile(CircularUNet)
-        net_dest_path = dest_path / net_path.split("/")[-1]
-        shutil.copy(net_path, net_dest_path)
-        print(f"Coping network file to {net_dest_path}")
+        # net_path = inspect.getfile(CircularUNet)
+        # net_dest_path = dest_path / net_path.split("/")[-1]
+        # shutil.copy(net_path, net_dest_path)
+        # print(f"Coping network file to {net_dest_path}")
 
-        train_path =  os.path.abspath(__file__)
-        train_dest_path = dest_path / train_path.split("/")[-1]
-        shutil.copy(train_path, train_dest_path)
-        print(f"Coping train file to {train_dest_path}")
+        # train_path =  os.path.abspath(__file__)
+        # train_dest_path = dest_path / train_path.split("/")[-1]
+        # shutil.copy(train_path, train_dest_path)
+        # print(f"Coping train file to {train_dest_path}")
 
         print("\nAccelerator配置信息: ")
         print(accelerator.state)
@@ -291,7 +332,7 @@ def train(cfg):
     # =================================================================================
 
     if(cfg.pretrained_checkpoint_dir is not None):
-        ddpm, _, _ = common.set_param_grad_by_prefix(ddpm, freeze_prefixes=cfg.filer_keys, print_info=True)
+        ddpm, _, _ = common.set_param_grad_by_prefix(ddpm, freeze_prefixes=cfg.filer_keys, print_info=print_info)
 
     if(accelerator.is_main_process):
         total_count_parameters = common.total_count_parameters(ddpm)
@@ -389,6 +430,27 @@ def train(cfg):
             collate_fn=common.collate_fn
         )
 
+    global_step = 0
+    if cfg.pretrained_checkpoint_dir is not None:
+        if accelerator.is_main_process:
+            print(f"[Rank0] Loading pretrained checkpoint from {cfg.pretrained_checkpoint_dir} ...")
+            _, _ = common.load_checkpoint(
+                checkpoint_path=cfg.pretrained_checkpoint_dir,
+                ema_model=ddpm_ema,  # rank0 有 ema_model
+                strict=False,
+                print_info=print_info
+            )
+        # ✅ barrier 同步
+        accelerator.wait_for_everyone()
+
+        # ✅ 让 rank0 的权重广播到所有 rank
+        with torch.no_grad():
+            for name, param in ddpm.named_parameters():
+                broadcast(param, from_process=0)  # from rank0 → all ranks
+
+        accelerator.wait_for_everyone()
+        print(f"[Rank{accelerator.process_index}] Checkpoint sync done.")
+
     optimizer = torch.optim.AdamW(
         [p for p in ddpm.parameters() if p.requires_grad], # ddpm.parameters(),
         lr=cfg.lr,
@@ -403,7 +465,6 @@ def train(cfg):
         num_training_steps=cfg.num_steps * cfg.gradient_accumulation_steps,
     )
 
-    global_step = 0
     if cfg.checkpoint_dir is not None:
         if accelerator.is_main_process:
             print(f"[Rank0] Loading pretrained checkpoint from {cfg.checkpoint_dir} ...")
@@ -461,10 +522,14 @@ def train(cfg):
                     new_texts.append(text)
 
         semantic = None
+        semantic_org = None
         if(use_semantic):
             semantic = batch["semantic"]
             if (not semantic.is_cuda):
                 semantic = semantic.cuda()
+            semantic_org = batch["semantic_org"]
+            if (not semantic_org.is_cuda):
+                semantic_org = semantic_org.cuda()
 
         points = batch["points"]
         if(not points.is_cuda):
@@ -474,7 +539,7 @@ def train(cfg):
         if(not batches.is_cuda):
             batches = batches.cuda()
 
-        return x, new_texts, texts, semantic, points, batches
+        return x, new_texts, texts, semantic, semantic_org, points, batches
 
     def split_channels(image: torch.Tensor):
         depth, rflct = torch.split(image, channels, dim=1)
@@ -532,7 +597,7 @@ def train(cfg):
     while global_step < cfg.num_steps:
         ddpm.train()
         for batch in dataloader:
-            x_0, text_input, text_original, semantic, points, batches = preprocess(
+            x_0, text_input, text_original, semantic, semantic_org, points, batches = preprocess(
                 batch,
                 cfg.diffusion_classifier_dropout,
                 cfg.use_text,
@@ -583,14 +648,17 @@ def train(cfg):
                     conditional_x_0 = None
                     text_features = None
                     text_null_features = None
+                    semantic = None
+                    semantic_org = None
                     gl = None
                     xyz = None
                     points = None
                     batches =None
+                    sparse_dense = None
                     if(cfg.use_guidence_net or cfg.use_control_net or cfg.use_text):
                         for batch in condition_guide_dataloader:
                             xyz = batch["xyz"]
-                            conditional_x_0, text_input, text_original, semantic, points, batches = preprocess(
+                            conditional_x_0, text_input, text_original, semantic, semantic_org, points, batches = preprocess(
                                 batch,
                                 cfg.diffusion_classifier_dropout,
                                 cfg.use_text,
@@ -614,11 +682,14 @@ def train(cfg):
                             text_null_features=text_null_features,
                             conditional_x_0=conditional_x_0,
                             points=points,
-                            batches=batches
+                            batches=batches,
+                            semantic=semantic if cfg.use_seg else None
                         )
 
                     if(cfg.use_guidence_net and not cfg.use_control_net):
                         sample, gl, noise = sample
+                    elif(cfg.upsampling or cfg.downsampling):
+                        sample, sparse_dense, noise = sample
                     else:
                         sample, noise = sample
 
@@ -636,7 +707,10 @@ def train(cfg):
                         num_step=global_step,
                         num_sample=cfg.diffusion_num_sampling_steps,
                         xyz=xyz,
+                        upsampling=sparse_dense if cfg.upsampling else None,
+                        downsampling=sparse_dense if cfg.downsampling else None,
                         text=text_original,
+                        semantic=semantic_org if cfg.use_seg else None,
                         dataset=cfg.dataset
                         # noise=noise
                     )
@@ -693,3 +767,4 @@ if __name__ == "__main__":
     parser.add_arguments(TrainingConfig, dest="cfg")
     cfg: TrainingConfig = parser.parse_args().cfg
     train(cfg)
+
