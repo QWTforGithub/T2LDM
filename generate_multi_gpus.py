@@ -43,7 +43,6 @@ from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
 
 
 def main(args, cfg):
-
     task = inspect.getfile(TrainingConfig).split("/")[-1].split("_")[1]
     project_dir = "test"
     project_name = datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
@@ -64,7 +63,6 @@ def main(args, cfg):
     device = accelerator.device
 
     if accelerator.is_main_process:
-
         accelerator.init_trackers(project_name=project_name)
         tracker = accelerator.get_tracker("tensorboard")
         json.dump(
@@ -93,7 +91,7 @@ def main(args, cfg):
         # shutil.copy(generate_path, generate_dest_path)
         # print(f"Coping generate file to {generate_dest_path}")
 
-        # train_name = config_path.split("/")[-1].replace("config_","train_")
+        # train_name = config_path.split("/")[-1].replace("config_", "train_")
         # training_path = f"{str(Path(__file__).parent.resolve())}/{train_name}"
         # training_dest_path = os.path.join(dest_path, training_path.split("/")[-1])
         # shutil.copy(training_path, training_dest_path)
@@ -106,7 +104,7 @@ def main(args, cfg):
     # Load pre-trained model
     # =================================================================================
 
-    ddpm, lidar_utils, cfg = inference_mgpus.setup_model(
+    ddpm, lidar_utils, _ = inference_mgpus.setup_model(
         ckpt_path=args.ckpt,
         device=args.device,
         sampling_mode=args.sampling_mode,
@@ -115,7 +113,7 @@ def main(args, cfg):
 
     ddpm = accelerator.prepare(ddpm)
 
-    seed = common.setup_seed(args.seed) # ---- 设置随机种子 ----
+    seed = common.setup_seed(args.seed)  # ---- 设置随机种子 ----
     if dist.is_initialized():
         rank = dist.get_rank()
         print(f"[Rank {rank}] Random check: {torch.randint(0, 10000, (1,))}")
@@ -132,14 +130,23 @@ def main(args, cfg):
     points = None
     xyz = None
 
-    if(cfg.use_text or cfg.use_text):
+    if (cfg.use_text or cfg.use_control_net):
         condition_guide_dataset = ConditionalX0(
             data_root=cfg.data_root,
-            training=False,
+            pkl="nuscenes_infos_10sweeps_description.pkl",
+            
+            use_seg=cfg.use_seg,
+            semantic_class_num=cfg.semantic_class_num,
+
+            training=True,
             aug=cfg.aug,
+
             resolution=cfg.resolution,
             depth_range=cfg.depth_range,
             fov=cfg.fov,
+
+            random_num=args.batch_size,
+
             type=cfg.dataset
         )
 
@@ -147,7 +154,7 @@ def main(args, cfg):
             condition_guide_dataset,
             batch_size=args.batch_size,
             shuffle=False,
-            num_workers=cfg.num_workers,
+            num_workers=2,
             collate_fn=common.collate_fn
         )
 
@@ -163,7 +170,7 @@ def main(args, cfg):
             )
             break
 
-        if(cfg.use_text):
+        if (cfg.use_text):
             clip_model = clip.load(cfg.clip_mode, device=device)
 
             def get_text_features(text, text_null):
@@ -178,7 +185,7 @@ def main(args, cfg):
             print(f"\ntext_all: {text_original}")
             print(f"\ntext_null: {text_null}")
             text_features, text_null_features = get_text_features(text_original, text_null)
-            text_original = common.encode_strings(str_list=text_original, max_len=64).cuda()
+            text_original = common.encode_strings(str_list=text_original, max_len=128).cuda()
 
     start_time = time.time()
     x, noise = accelerator.unwrap_model(ddpm).sample(
@@ -188,7 +195,7 @@ def main(args, cfg):
         mode=args.sampling_mode,
         text_features=text_features,
         text_null_features=text_null_features,
-        semantic=semantic
+        semantic=semantic if cfg.use_seg else None
     )
     all_time = time.time() - start_time
     avg_time = all_time / 4 / args.batch_size
@@ -197,11 +204,11 @@ def main(args, cfg):
     x = x.clamp(-1, 1)
 
     x = accelerator.gather(x)
-    if(cfg.use_seg):
+    if (cfg.use_seg):
         semantic_org = accelerator.gather(semantic_org)
         xyz = accelerator.gather(xyz)
 
-    if(cfg.use_text):
+    if (cfg.use_text):
         text_original = accelerator.gather(text_original)
 
     # ---- save point cloud ----
@@ -214,25 +221,34 @@ def main(args, cfg):
             rank=seed,
             noise=noise,
             text=text_original,
-            semantic=semantic_org,
+            semantic=semantic_org if cfg.use_seg else None,
             xyz=xyz,
-            dataset="nuscenes"
+            dataset="nuscenes",
+            inference=True
         )
         common.remove_empty_dirs(root=project_dir)
     # ---- save point cloud ----
 
+    del condition_guide_dataloader
+    del condition_guide_dataset
+    import gc
+    gc.collect()
+
+
 
 if __name__ == "__main__":
 
-    root_path = "/root/models/T2LDM-final"
+    root_path = "/zhangq0619/qwt/models/T2LDM-final"
 
-    task = "unconditional_kitti_360_gn"
-    log= "20260305T162207"
-    name = "diffusion_0000730000.pth"
+    task = "semantic_nuScenes_gn"
+    log= "20260414T015740"
+    name = "diffusion_0000400000.pth"
 
     ckpt = f"{root_path}/logs/diffusion/{task}/{log}/models/{name}"
+    
+    ckpt = "/zhangq0619/qwt/models/checkpoints/semantic_kitti360_full_scrg/diffusion_0000720000.pth"
 
-    seed = 202# [18,  22,  25,  28,  33,  202, 204, 208, 209, 234,   236, 244, 265, 273, 281,   286, 287, 304, 307, 355]
+    seed = 22# [18,  22,  25,  28,  33,  202, 204, 208, 209, 234,   236, 244, 265, 273, 281,   286, 287, 304, 307, 355]
     batch_size = 32 # 64
     sampling_steps = 1024 # 1024
     sampling_mode = "ddpm"
@@ -256,3 +272,4 @@ if __name__ == "__main__":
     cfg: TrainingConfig = parser_cfg.parse_args().cfg
 
     main(args, cfg)
+
