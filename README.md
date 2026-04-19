@@ -223,7 +223,7 @@ Some results from T2LDM with the Full Training SCRG checkpoint on KITTI360 (Sorr
 |:-------------------------------:|:---------------------------------------:|:------------------------------------------:|:--------------------------------------:|
 |    Frozen SCRG on 10W Steps     |         Unconditional Generation        | -- | -- |
 | Full Training SCRG on 40W Steps |         Unconditional Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg) |
-|    40W Steps                    |     Semantic-to-LiDAR Generation     | -- | -- |
+|    40W Steps                    |     Semantic-to-LiDAR Generation     | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/semantic_kitti360) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/semantic_kitti360) |
 
 Some results from T2LDM with the Full Training SCRG checkpoint on SemanticKITTI (Sorry, I am too lazy to draw. Please see [Examples](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/unconditional_semantickitti_full_training_scrg)).
 
