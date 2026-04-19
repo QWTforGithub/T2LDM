@@ -96,7 +96,7 @@ class ConditionalX0(Dataset):
 
                     self.lidar_semantic.append(semantic)
 
-            elif (type == "KITTI360"):
+            elif (type == "kitti_360"):
                 for scene in KITTI360_SCENES:
                     wildcard = f"*_{scene:04d}_sync/velodyne_points/data/*.bin"
                     self.lidar_path += sorted(Path(data_root).glob(wildcard))
@@ -105,7 +105,7 @@ class ConditionalX0(Dataset):
                     self.lidar_description.append(None)
                     self.lidar_semantic.append(None)
 
-            elif (type == "SemanticKITTI"):
+            elif (type == "kitti_semantic"):
                 if (text_path is None):
                     for scene in SEMANTICKITTI_SCENES:
                         wildcard = f"{scene:02d}/velodyne/*.bin"
@@ -124,7 +124,7 @@ class ConditionalX0(Dataset):
                         self.lidar_description.append(info["text"])
                         self.lidar_semantic.append(Path(info["semantic_path"]))
 
-
+            print(len(self.lidar_path))
             if(random_num > 0 and use_seg):
                 lists = random.sample(range(len(self.lidar_path)), random_num)
                 print(f"list: {lists}")
