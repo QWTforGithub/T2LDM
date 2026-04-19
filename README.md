@@ -152,7 +152,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   ```
 - 2. Of course, you also can download **generate nuscenes_infos_10sweeps_description.pkl** from [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). This size is about 9.33GB.<br/>
      Meanwhile, you can only download **_point cloud files of nuScenes (LiDAR_TOP.zip)_**: [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/blob/main).<br/>
-     Please put **_LiDAR_TOP.zip_** on the **__nuScenes/v1.0-trainval/samples/LiDAR_TOP.zip__**, and unzip it.
+     Please put **_LiDAR_TOP.zip_** on the **__nuScenes/v1.0-trainval/samples/LiDAR_TOP.zip__**, and unzip it. <br/>
      This means that  this is allowed you to retrain T2LDM using **generate nuscenes_infos_10sweeps_description.pkl** + **point cloud files of nuScenes**.
 
 #### 2. T2LnuScenes++ (107816 Text-LiDAR Pairs)
