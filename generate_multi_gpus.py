@@ -233,13 +233,6 @@ def main(args, cfg):
         common.remove_empty_dirs(root=project_dir)
     # ---- save point cloud ----
 
-    del condition_guide_dataloader
-    del condition_guide_dataset
-    import gc
-    gc.collect()
-
-
-
 if __name__ == "__main__":
 
     root_path = "/zhangq0619/qwt/models/T2LDM-final"
