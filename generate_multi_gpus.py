@@ -41,6 +41,8 @@ from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
 # from utils.config_semantic_nuScenes_gn import TrainingConfig
 
 # from utils.config_semantic_semantikitti_gn import TrainingConfig
+
+# from utils.config_sparsetodense_nuScenes_gn import TrainingConfig
 # ---- configuration files ----
 
 
