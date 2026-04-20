@@ -206,8 +206,8 @@ As I rewrote the code of T2LDM, I have to retrain T2LDM. However, I currently do
 |    Frozen SCRG on 10W Steps     |         Text-guied Generation        | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/text_nuscenes_frozen_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/text_nuscenes_frozen_training_scrg) |
 | Full Training SCRG on 40W Steps |         Text-guided Generation       | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/text_nuscenes_full_training_scrg) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/text_nuscenes_full_training_scrg) |
 |    40W Steps                    |     Semantic-to-LiDAR Generation     | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/semantic_nuscenes) | [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/semantic_nuscenes) |
-|    40W Steps                    |     Sparse-to-Dense Generation     | -- | -- |
-|    40W Steps                    |     Dense-to-Sparse Generation     | -- | -- |
+|    40W Steps                    |     Sparse-to-Dense Generation     | training... | training... |
+|    40W Steps                    |     Dense-to-Sparse Generation     | training... | training... |
 
 Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.
 <img src="assets/fig4.png" alt="t2ldm" width="900"/> <br/>
