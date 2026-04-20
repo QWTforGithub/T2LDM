@@ -51,48 +51,8 @@ from utils.config_unconditional_nuScenes_gn_full_scrg import TrainingConfig
 # from utils.config_sparsetodense_nuScenes_gn import TrainingConfig
 # ---- configuration files ----
 
-import dataclasses
-import datetime
-import json
-import os
-import warnings
-import random
-import einops
-import matplotlib.cm as cm
-import torch
-import torch._dynamo
-import torch.nn.functional as F
-import inspect
-import shutil
-
-from accelerate import Accelerator
-from ema_pytorch import EMA
-from simple_parsing import ArgumentParser
-from accelerate.utils import broadcast
-from torch.utils.data import DataLoader
-from tqdm.auto import tqdm
-from utils import common
-from data.kitti_360.kitti_360 import KITTI360Dataset
-from data.kitti_semantic.kitti_semantic import KITTISemanticDataset
-from data.nuScenes.nuScenes import NuScenesDataset
-from data.conditional_x0.conditionalx0 import ConditionalX0
-from pathlib import Path
-from models.CLIP.clip import clip
-from models.T5.T5 import t5
-import utils.render
-from models.diffusion import (
-    ContinuousTimeGaussianDiffusion,
-    DiscreteTimeGaussianDiffusion,
-    GaussianDiffusion
-)
-from utils.lidar import LiDARUtility, get_hdl64e_linear_ray_angles
-
-from models.T2LDM_old import CircularUNet
-from utils.config_sparsetodense_nuScenes_gn import TrainingConfig
-
 warnings.filterwarnings("ignore", category=UserWarning)
 torch._dynamo.config.suppress_errors = True
-
 
 def train(cfg):
     torch.backends.cudnn.benchmark = True
@@ -380,6 +340,7 @@ def train(cfg):
             only_class=cfg.only_class,
             text_keys=cfg.text_keys,
             semantic_class_num=cfg.semantic_class_num,
+            sampling=True if(cfg.upsampling or cfg.downsampling) else False,
             print_info=print_info
         )
     else:
@@ -403,6 +364,8 @@ def train(cfg):
             resolution=cfg.resolution,
             depth_range=cfg.depth_range,
             fov=cfg.fov,
+
+            sampling=True if cfg.upsampling or cfg.downsampling else False,
 
             type=cfg.dataset,
             print_info=print_info
@@ -539,7 +502,28 @@ def train(cfg):
         if(not batches.is_cuda):
             batches = batches.cuda()
 
-        return x, new_texts, texts, semantic, semantic_org, points, batches
+        sampling_points = None
+        sampling_depth = None
+        sampling_batch = None
+        if(cfg.upsampling or cfg.downsampling):
+            sampling_points = batch["sampling_points"]
+            if (not sampling_points.is_cuda):
+                sampling_points = sampling_points.cuda()
+
+            sampling_depth = batch["sampling_depth"]
+            sampling_depth = lidar_utils.convert_depth(sampling_depth)
+            sampling_depth = lidar_utils.normalize(sampling_depth)
+            sampling_depth = F.interpolate(
+                sampling_depth.to(device),
+                size=cfg.resolution,
+                mode="nearest-exact",
+            )
+
+            sampling_batch = batch["sampling_batch"]
+            if (not sampling_batch.is_cuda):
+                sampling_batch = sampling_batch.cuda()
+
+        return x, new_texts, texts, semantic, semantic_org, points, batches, sampling_points, sampling_depth, sampling_batch
 
     def split_channels(image: torch.Tensor):
         depth, rflct = torch.split(image, channels, dim=1)
@@ -597,7 +581,7 @@ def train(cfg):
     while global_step < cfg.num_steps:
         ddpm.train()
         for batch in dataloader:
-            x_0, text_input, text_original, semantic, semantic_org, points, batches = preprocess(
+            x_0, text_input, text_original, semantic, semantic_org, points, batches, sampling_points, sampling_depth, sampling_batch = preprocess(
                 batch,
                 cfg.diffusion_classifier_dropout,
                 cfg.use_text,
@@ -618,6 +602,7 @@ def train(cfg):
                     current_steps=global_step,
                     points=points,
                     batches=batches,
+                    sampling_condition=sampling_depth,
                     print_loss=print_info
                 )
 
@@ -655,10 +640,13 @@ def train(cfg):
                     points = None
                     batches =None
                     sparse_dense = None
+                    sampling_points = None
+                    sampling_depth = None
+                    sampling_batch = None
                     if(cfg.use_guidence_net or cfg.use_control_net or cfg.use_text):
                         for batch in condition_guide_dataloader:
                             xyz = batch["xyz"]
-                            conditional_x_0, text_input, text_original, semantic, semantic_org, points, batches = preprocess(
+                            conditional_x_0, text_input, text_original, semantic, semantic_org, points, batches, sampling_points, sampling_depth, sampling_batch = preprocess(
                                 batch,
                                 cfg.diffusion_classifier_dropout,
                                 cfg.use_text,
@@ -681,9 +669,10 @@ def train(cfg):
                             text_features=text_features,
                             text_null_features=text_null_features,
                             conditional_x_0=conditional_x_0,
-                            points=points,
-                            batches=batches,
-                            semantic=semantic if cfg.use_seg else None
+                            points=sampling_points,
+                            batches=sampling_batch,
+                            semantic=semantic if cfg.use_seg else None,
+                            sampling_condition=sampling_depth,
                         )
 
                     if(cfg.use_guidence_net and not cfg.use_control_net):
