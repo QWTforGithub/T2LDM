@@ -22,7 +22,7 @@ import matplotlib.cm as cm
 import pickle
 import argparse
 from einops import rearrange, repeat
-from pointops.functions import pointops
+# from pointops.functions import pointops
 import matplotlib.pyplot as plt
 import subprocess
 
