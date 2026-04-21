@@ -212,7 +212,7 @@ As I rewrote the code of T2LDM, I have to retrain T2LDM. However, I currently do
 |    40W Steps                    |     Sparse-to-Dense Generation     | training... | training... |
 |    40W Steps                    |     Dense-to-Sparse Generation     | training... | training... |
 
-Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.
+Some results from T2LDM with the Full Training SCRG checkpoint on nuScenes.<br/>
 <img src="assets/fig4.png" alt="t2ldm" width="900"/> <br/>
 
 ### KITTI360
