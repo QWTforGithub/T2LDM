@@ -126,7 +126,8 @@ class LiDARUtility(nn.Module):
             semantic=None,          # 语义map [B,1,H,W]
             xyz=None,               # 与conditional net对应的range image [B,1,H,W]
             rank=0,                 # rank
-            dataset="nuscenes"      # 数据集
+            dataset="nuscenes",     # 数据集
+            inference=False
     ):
 
         if(generation is not  None):
@@ -234,7 +235,8 @@ class LiDARUtility(nn.Module):
         if(text is not None):
 
             # 字符编码，读取时需要利用common.decode_tensor解码
-            text = encode_strings(str_list=text, max_len=64)
+            if(not inference):
+                text = encode_strings(str_list=text, max_len=64)
 
             text_dir = f"{self.project_dir}/text"
             os.makedirs(text_dir, exist_ok=True)
@@ -304,19 +306,20 @@ if __name__ == '__main__':
 
     from utils import common
 
-    # lidar_filename = '/ihoment/youjie10/qwt/dataset/nuscenes/v1.0-trainval/samples/LIDAR_TOP/n008-2018-09-18-13-10-39-0400__LIDAR_TOP__1537290847200028.pcd.bin'
+    # lidar_filename = 'sample_data/nuScenes.bin'
     # resolution = (32,1024) # (64,1024)
     # depth_range = (0.01,50.0)  # (1.45,80.0)
     # points = common.get_lidar_sweep(lidar_filename,dim=5)
 
-    lidar_filename = '/ihoment/youjie10/qwt/dataset/KITTI360/data_3d_raw/2013_05_28_drive_0000_sync/velodyne_points/data/0000001245.bin'
+    lidar_filename = 'sample_data/KITTI360.bin'
 
     resolution = (64,1024) # (64,1024)
     depth_range = (1.45,80.0)  # (1.45,80.0)
     points = common.get_lidar_sweep(lidar_filename,dim=4)
 
     fov = (3,-25)
-    root_path = "/ihoment/youjie10/qwt/tmp"
+    root_path = "results"
+    os.makedirs(root_path)
 
     shutil.copy(lidar_filename, f"{root_path}/{lidar_filename.split('/')[-1]}")
 
