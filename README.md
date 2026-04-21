@@ -109,7 +109,8 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
 ```
   cd envs
   conda env create -f environment.yaml
-  
+
+  # If you want to conduct sparse-to-dense/dense-to-sparse experiments.
   cd ../pointops
   python setup.py install
 ```
@@ -126,6 +127,7 @@ The following environment is recommended for running **_T2LDM_** (four NVIDIA 30
   pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
   pip install ema-pytorch==0.4.8 kornia==0.7.0 accelerate==0.22.0
 
+  # If you want to conduct sparse-to-dense/dense-to-sparse experiments.
   cd ../pointops
   python setup.py install
 ```
@@ -165,6 +167,7 @@ Please check **data/nuScenes/description_plus_class.txt** and **data/nuScenes/de
   python descriptor_plus.py
   ```
 - 2. Of course, you also can download **text.pkl** from [HuggingFace](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main/KITTI360_download_address).
+- 3. If you want to train sparse-to-dense/dense-to-sparse models or generate the samples, please download [LIDAR_TOP_DOWNSAMPLING.zip](https://huggingface.co/QWTforHuggingFace/T2LDM/blob/main/LIDAR_TOP_DOWNSAMPLING.zip). Then, put it on **__nuScenes/v1.0-trainval/samples/LIDAR_TOP_DOWNSAMPLING.zip__** and unzip it.
 
 ### KITTI360
 - 1. Dowload the official [KITTI360 (Raw Velodyne Scans (119G))](https://www.cvlibs.net/datasets/kitti-360/download.php) and organize the download files as follows:
