@@ -96,7 +96,7 @@ An example of PC to RM conversion is provided to help you understand the convers
 
 ### Requirements
 The following environment is recommended for running **_T2LDM_** (four NVIDIA 3090 GPUs or eight NVIDIA 4090 GPUs):<br/>
-**_If you only want to generate some LiDAR results, the Single 3090(24G)/3060(12G) GPU is enough!_**
+**_If you only want to generate some LiDAR results (64 Steps or 1024 Steps), the Single 3090(24G)/3060(12G) GPU is enough!_**
 - Ubuntu: 18.04 and above
 - gcc/g++: 11.4 and above
 - CUDA: 12.1
