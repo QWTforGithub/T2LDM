@@ -247,7 +247,7 @@ Before the training and sampling, it must deploys the accelerate.
 
 This issue is most likely caused by insufficient memory. In distributed training, the file **_nuscenes_infos_10sweeps_description.pkl (9.33 GB)_** is loaded multiple times, which leads to excessive memory usage. In practice, the "semantic" field occupies most of the storage.
 
-To address this, you can split the "semantic" data into multiple .npy files and store only their file paths in the .pkl file. Then, modify dataset.py to load the semantic data on demand.
+To address this, you can split the "[semantic](https://huggingface.co/QWTforHuggingFace/T2LDM/blob/main/semantic.zip)" data into multiple .npy files and store only their file paths in the .pkl file. Then, modify dataset.py to load the semantic data on demand.
 
 ### Batch Size & Learning Rate
 For the setting of batch size:
