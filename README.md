@@ -7,7 +7,7 @@ This repo is the official project repository of the paper **_A Self-Conditioned 
  - **_The code wiil further be updated for nuScenes, KITTI360 and SemanticKITTI!_**
 
  - **_The extension of T2LDM achieves 3D Boxes-to-Lidar (adjesting...) !_**
-   <img src="assets/box.png" alt="t2ldm" width="500"/> <br/>
+   <img src="assets/box.png" alt="t2ldm" width="900"/> <br/>
 
 ## Overall Framework 
 <img src="assets/t2ldm.png" alt="t2ldm" width="900"/> <br/>
