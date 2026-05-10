@@ -3,4 +3,10 @@
 1. Please download the checkpoints (eval folder) from [QWTforHuggingFace/T2LDM](https://huggingface.co/QWTforHuggingFace/T2LDM/tree/main). <br/>
 2. Put the eval/pretrained folder into the eval folder. <br/>
 
+```
+  1. sudo apt-get install libsparsehash-dev
+  2. Download https://github.com/mit-han-lab/torchsparse/tree/v1.4.0
+  3. python setup.py install
+```
+
 The original downloading from [LiDM](https://github.com/hancyran/LiDAR-Diffusion/blob/main/lidm/eval/README.md).
