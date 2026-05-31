@@ -1,12 +1,12 @@
 # T2LDM
 
 This repo is the official project repository of the paper **_A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation_**. 
- -  [ [arXiv](https://arxiv.org/abs/2511.19004) ], [ [CVPR](https://openaccess.thecvf.com/content/CVPR2026/papers/Qu_A_Self-Conditioned_Representation_Guided_Diffusion_Model_for_Realistic_Text-to-LiDAR_Scene_CVPR_2026_paper.pdf) ] 
+ -  [ [arXiv](https://arxiv.org/abs/2511.19004) ], [ [CVPR](https://openaccess.thecvf.com/content/CVPR2026/papers/Qu_A_Self-Conditioned_Representation_Guided_Diffusion_Model_for_Realistic_Text-to-LiDAR_Scene_CVPR_2026_paper.pdf) ]
  - **_Our paper has been accepted by CVPR 2026!_**
  - **_Released model weights are temporarily as the model structure of T2LDM may be adjusted later._**
  - **_The code wiil further be updated for nuScenes, KITTI360 and SemanticKITTI!_**
 
- - **_The extension of T2LDM achieves (Box, BEV, Camera)-to-Lidar (adjuesting...) !_**
+ - **_The extension of [ [T2LDM](https://github.com/QWTforGithub/T2LDM_v2) ] achieves (Box, BEV, Camera)-to-Lidar (adjuesting...) !_**
    <img src="assets/others.png" alt="t2ldm" width="900"/> <br/>
 
 ## Overall Framework 
