@@ -15,11 +15,12 @@ This repo is the official project repository of the paper **_A Self-Conditioned 
 ## Citation
 If you find our paper useful to your research, please cite our work as an acknowledgment.
 ```bib
-@article{qu2025self,
+@inproceedings{qu2026self,
   title={A Self-Conditioned Representation Guided Diffusion Model for Realistic Text-to-LiDAR Scene Generation},
   author={Qu, Wentao and Mei, Guofeng and Wu, Yang and Gong, Yongshun and Huang, Xiaoshui and Xiao, Liang},
-  journal={arXiv preprint arXiv:2511.19004},
-  year={2025}
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={9434--9444},
+  year={2026}
 }
 ```
 
