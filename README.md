@@ -6,7 +6,7 @@ This repo is the official project repository of the paper **_A Self-Conditioned 
  - **_Released model weights are temporarily as the model structure of T2LDM may be adjusted later._**
  - **_The code wiil further be updated for nuScenes, KITTI360 and SemanticKITTI!_**
 
- - We advice strong to use the extension vision of T2LDM. **_The extension version, [ [T2LDM++](https://github.com/QWTforGithub/T2LDM_v2) ], achieves (Box, BEV, Camera)-to-Lidar !_**
+ - We strongly recommend to use the extension vision of T2LDM. **_The extension version, [ [T2LDM++](https://github.com/QWTforGithub/T2LDM_v2) ], achieves (Box, BEV, Camera)-to-Lidar !_**
    <img src="assets/others.png" alt="t2ldm" width="900"/> <br/>
 
 ## Overall Framework 
